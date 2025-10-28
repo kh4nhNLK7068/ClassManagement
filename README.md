@@ -82,4 +82,24 @@ Dành cho **IT** và **Teacher**:
 
 ---
 
-## 📂 Project Structure
+## 🚀 Setup Guide
+
+### 🧮 Clone repository
+```bash
+git clone https://github.com/kh4nhNLK7068/ClassManagement.git
+```
+---
+
+## 🧑‍💻 Author
+
+**Khanh Nguyen**
+📧 [[khanhnguyennlk4198@gmail.com](mailto:khanhnguyennlk4198@gmail.com)] <br>
+💼 Full-stack Developer.
+
+---
+
+## 🪪 License
+
+This project is for practicing programming skills. <br>
+Telerik UI libraries require a valid developer license from **Progress Telerik**.
+
