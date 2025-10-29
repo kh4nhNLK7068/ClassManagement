@@ -195,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
-    <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Data\ClassManagementDb.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -243,10 +242,15 @@
       <DependentUpon>202510280836351_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\Entities\Class.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\RoleUser.cs" />
+    <Compile Include="Models\Entities\StudentInClass.cs" />
+    <Compile Include="Models\Entities\StudentInfo.cs" />
+    <Compile Include="Models\Entities\Subject.cs" />
+    <Compile Include="Models\Entities\TeacherInfo.cs" />
+    <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\SubjectRepository.cs" />
-    <Compile Include="Views\Temp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
@@ -262,6 +266,7 @@
       <DependentUpon>ClassManagementDb.xsd</DependentUpon>
     </Content>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -270,7 +275,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\Implements\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\Enums\" />
+    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Repositories\Implementations\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Services\Implementations\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202510280836351_InitialCreate.resx">
@@ -297,7 +310,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
