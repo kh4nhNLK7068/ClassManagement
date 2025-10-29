@@ -40,21 +40,19 @@ namespace ClassManagement.Data {
         
         private TeacherInfoDataTable tableTeacherInfo;
         
-        private global::System.Data.DataRelation relationFK_RoleUser_User;
-        
         private global::System.Data.DataRelation relationFK_StudentInClass_Student;
-        
-        private global::System.Data.DataRelation relationFK_StudentInfo_User;
-        
-        private global::System.Data.DataRelation relationFK_TeacherInfo_User;
         
         private global::System.Data.DataRelation relationFK_Class_Subject;
         
         private global::System.Data.DataRelation relationFK_RoleUser_Role;
         
-        private global::System.Data.DataRelation relationFK_User_Role;
-        
         private global::System.Data.DataRelation relationFK_StudentInClass_Class;
+        
+        private global::System.Data.DataRelation relationFK_RoleUser_User;
+        
+        private global::System.Data.DataRelation relationFK_User_Student;
+        
+        private global::System.Data.DataRelation relationFK_User_Teacher;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -378,14 +376,13 @@ namespace ClassManagement.Data {
                     this.tableTeacherInfo.InitVars();
                 }
             }
-            this.relationFK_RoleUser_User = this.Relations["FK_RoleUser_User"];
             this.relationFK_StudentInClass_Student = this.Relations["FK_StudentInClass_Student"];
-            this.relationFK_StudentInfo_User = this.Relations["FK_StudentInfo_User"];
-            this.relationFK_TeacherInfo_User = this.Relations["FK_TeacherInfo_User"];
             this.relationFK_Class_Subject = this.Relations["FK_Class_Subject"];
             this.relationFK_RoleUser_Role = this.Relations["FK_RoleUser_Role"];
-            this.relationFK_User_Role = this.Relations["FK_User_Role"];
             this.relationFK_StudentInClass_Class = this.Relations["FK_StudentInClass_Class"];
+            this.relationFK_RoleUser_User = this.Relations["FK_RoleUser_User"];
+            this.relationFK_User_Student = this.Relations["FK_User_Student"];
+            this.relationFK_User_Teacher = this.Relations["FK_User_Teacher"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -412,22 +409,10 @@ namespace ClassManagement.Data {
             base.Tables.Add(this.tableSubject);
             this.tableTeacherInfo = new TeacherInfoDataTable();
             base.Tables.Add(this.tableTeacherInfo);
-            this.relationFK_RoleUser_User = new global::System.Data.DataRelation("FK_RoleUser_User", new global::System.Data.DataColumn[] {
-                        this.tableUser.UserIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableRoleUser.UserIdColumn}, false);
-            this.Relations.Add(this.relationFK_RoleUser_User);
             this.relationFK_StudentInClass_Student = new global::System.Data.DataRelation("FK_StudentInClass_Student", new global::System.Data.DataColumn[] {
                         this.tableStudentInfo.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableStudentInClass.StudentIdColumn}, false);
             this.Relations.Add(this.relationFK_StudentInClass_Student);
-            this.relationFK_StudentInfo_User = new global::System.Data.DataRelation("FK_StudentInfo_User", new global::System.Data.DataColumn[] {
-                        this.tableUser.UserIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableStudentInfo.UserIdColumn}, false);
-            this.Relations.Add(this.relationFK_StudentInfo_User);
-            this.relationFK_TeacherInfo_User = new global::System.Data.DataRelation("FK_TeacherInfo_User", new global::System.Data.DataColumn[] {
-                        this.tableUser.UserIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableTeacherInfo.UserIdColumn}, false);
-            this.Relations.Add(this.relationFK_TeacherInfo_User);
             this.relationFK_Class_Subject = new global::System.Data.DataRelation("FK_Class_Subject", new global::System.Data.DataColumn[] {
                         this.tableSubject.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableClass.SubjectIdColumn}, false);
@@ -436,14 +421,22 @@ namespace ClassManagement.Data {
                         this.tableRole.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableRoleUser.RoleIdColumn}, false);
             this.Relations.Add(this.relationFK_RoleUser_Role);
-            this.relationFK_User_Role = new global::System.Data.DataRelation("FK_User_Role", new global::System.Data.DataColumn[] {
-                        this.tableRole.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableUser.RoleIdColumn}, false);
-            this.Relations.Add(this.relationFK_User_Role);
             this.relationFK_StudentInClass_Class = new global::System.Data.DataRelation("FK_StudentInClass_Class", new global::System.Data.DataColumn[] {
                         this.tableClass.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableStudentInClass.ClassIdColumn}, false);
             this.Relations.Add(this.relationFK_StudentInClass_Class);
+            this.relationFK_RoleUser_User = new global::System.Data.DataRelation("FK_RoleUser_User", new global::System.Data.DataColumn[] {
+                        this.tableUser.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRoleUser.UserIdColumn}, false);
+            this.Relations.Add(this.relationFK_RoleUser_User);
+            this.relationFK_User_Student = new global::System.Data.DataRelation("FK_User_Student", new global::System.Data.DataColumn[] {
+                        this.tableStudentInfo.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableUser.StudentInfoIdColumn}, false);
+            this.Relations.Add(this.relationFK_User_Student);
+            this.relationFK_User_Teacher = new global::System.Data.DataRelation("FK_User_Teacher", new global::System.Data.DataColumn[] {
+                        this.tableTeacherInfo.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableUser.TeacherInfoIdColumn}, false);
+            this.Relations.Add(this.relationFK_User_Teacher);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1354,7 +1347,7 @@ namespace ClassManagement.Data {
                     columnValuesArray[1] = parentRoleRowByFK_RoleUser_Role[0];
                 }
                 if ((parentUserRowByFK_RoleUser_User != null)) {
-                    columnValuesArray[2] = parentUserRowByFK_RoleUser_User[0];
+                    columnValuesArray[2] = parentUserRowByFK_RoleUser_User[3];
                 }
                 rowRoleUserRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRoleUserRow);
@@ -1542,15 +1535,17 @@ namespace ClassManagement.Data {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class UserDataTable : global::System.Data.TypedTableBase<UserRow> {
             
-            private global::System.Data.DataColumn columnUserId;
-            
             private global::System.Data.DataColumn columnUsername;
             
             private global::System.Data.DataColumn columnPassword;
             
-            private global::System.Data.DataColumn columnRoleId;
-            
             private global::System.Data.DataColumn columnStatus;
+            
+            private global::System.Data.DataColumn columnID;
+            
+            private global::System.Data.DataColumn columnTeacherInfoId;
+            
+            private global::System.Data.DataColumn columnStudentInfoId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1587,14 +1582,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn UserIdColumn {
-                get {
-                    return this.columnUserId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn UsernameColumn {
                 get {
                     return this.columnUsername;
@@ -1611,17 +1598,33 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RoleIdColumn {
+            public global::System.Data.DataColumn StatusColumn {
                 get {
-                    return this.columnRoleId;
+                    return this.columnStatus;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn StatusColumn {
+            public global::System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnStatus;
+                    return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TeacherInfoIdColumn {
+                get {
+                    return this.columnTeacherInfoId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StudentInfoIdColumn {
+                get {
+                    return this.columnStudentInfoId;
                 }
             }
             
@@ -1662,16 +1665,20 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow AddUserRow(string Username, string Password, RoleRow parentRoleRowByFK_User_Role, bool Status) {
+            public UserRow AddUserRow(string Username, string Password, bool Status, TeacherInfoRow parentTeacherInfoRowByFK_User_Teacher, StudentInfoRow parentStudentInfoRowByFK_User_Student) {
                 UserRow rowUserRow = ((UserRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
                         Username,
                         Password,
+                        Status,
                         null,
-                        Status};
-                if ((parentRoleRowByFK_User_Role != null)) {
-                    columnValuesArray[3] = parentRoleRowByFK_User_Role[0];
+                        null,
+                        null};
+                if ((parentTeacherInfoRowByFK_User_Teacher != null)) {
+                    columnValuesArray[4] = parentTeacherInfoRowByFK_User_Teacher[0];
+                }
+                if ((parentStudentInfoRowByFK_User_Student != null)) {
+                    columnValuesArray[5] = parentStudentInfoRowByFK_User_Student[0];
                 }
                 rowUserRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUserRow);
@@ -1680,9 +1687,9 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow FindByUserId(int UserId) {
+            public UserRow FindByID(int ID) {
                 return ((UserRow)(this.Rows.Find(new object[] {
-                            UserId})));
+                            ID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1702,40 +1709,42 @@ namespace ClassManagement.Data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnUserId = base.Columns["UserId"];
                 this.columnUsername = base.Columns["Username"];
                 this.columnPassword = base.Columns["Password"];
-                this.columnRoleId = base.Columns["RoleId"];
                 this.columnStatus = base.Columns["Status"];
+                this.columnID = base.Columns["ID"];
+                this.columnTeacherInfoId = base.Columns["TeacherInfoId"];
+                this.columnStudentInfoId = base.Columns["StudentInfoId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserId);
                 this.columnUsername = new global::System.Data.DataColumn("Username", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUsername);
                 this.columnPassword = new global::System.Data.DataColumn("Password", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPassword);
-                this.columnRoleId = new global::System.Data.DataColumn("RoleId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRoleId);
                 this.columnStatus = new global::System.Data.DataColumn("Status", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnTeacherInfoId = new global::System.Data.DataColumn("TeacherInfoId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTeacherInfoId);
+                this.columnStudentInfoId = new global::System.Data.DataColumn("StudentInfoId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStudentInfoId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnUserId}, true));
-                this.columnUserId.AutoIncrement = true;
-                this.columnUserId.AutoIncrementSeed = -1;
-                this.columnUserId.AutoIncrementStep = -1;
-                this.columnUserId.AllowDBNull = false;
-                this.columnUserId.ReadOnly = true;
-                this.columnUserId.Unique = true;
+                                this.columnID}, true));
                 this.columnUsername.AllowDBNull = false;
                 this.columnUsername.MaxLength = 50;
                 this.columnPassword.AllowDBNull = false;
                 this.columnPassword.MaxLength = 255;
-                this.columnRoleId.AllowDBNull = false;
                 this.columnStatus.AllowDBNull = false;
+                this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2177,8 +2186,6 @@ namespace ClassManagement.Data {
             
             private global::System.Data.DataColumn columnStatus;
             
-            private global::System.Data.DataColumn columnUserId;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public StudentInfoDataTable() {
@@ -2254,14 +2261,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn UserIdColumn {
-                get {
-                    return this.columnUserId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2297,18 +2296,14 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public StudentInfoRow AddStudentInfoRow(string FullName, System.DateTime DoB, string CityLive, bool Status, UserRow parentUserRowByFK_StudentInfo_User) {
+            public StudentInfoRow AddStudentInfoRow(string FullName, System.DateTime DoB, string CityLive, bool Status) {
                 StudentInfoRow rowStudentInfoRow = ((StudentInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         FullName,
                         DoB,
                         CityLive,
-                        Status,
-                        null};
-                if ((parentUserRowByFK_StudentInfo_User != null)) {
-                    columnValuesArray[5] = parentUserRowByFK_StudentInfo_User[0];
-                }
+                        Status};
                 rowStudentInfoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowStudentInfoRow);
                 return rowStudentInfoRow;
@@ -2343,7 +2338,6 @@ namespace ClassManagement.Data {
                 this.columnDoB = base.Columns["DoB"];
                 this.columnCityLive = base.Columns["CityLive"];
                 this.columnStatus = base.Columns["Status"];
-                this.columnUserId = base.Columns["UserId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2359,8 +2353,6 @@ namespace ClassManagement.Data {
                 base.Columns.Add(this.columnCityLive);
                 this.columnStatus = new global::System.Data.DataColumn("Status", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus);
-                this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -2839,8 +2831,6 @@ namespace ClassManagement.Data {
             
             private global::System.Data.DataColumn columnStatus;
             
-            private global::System.Data.DataColumn columnUserId;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public TeacherInfoDataTable() {
@@ -2916,14 +2906,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn UserIdColumn {
-                get {
-                    return this.columnUserId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2959,18 +2941,14 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public TeacherInfoRow AddTeacherInfoRow(string FullName, System.DateTime DoB, string CityLive, bool Status, UserRow parentUserRowByFK_TeacherInfo_User) {
+            public TeacherInfoRow AddTeacherInfoRow(string FullName, System.DateTime DoB, string CityLive, bool Status) {
                 TeacherInfoRow rowTeacherInfoRow = ((TeacherInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         FullName,
                         DoB,
                         CityLive,
-                        Status,
-                        null};
-                if ((parentUserRowByFK_TeacherInfo_User != null)) {
-                    columnValuesArray[5] = parentUserRowByFK_TeacherInfo_User[0];
-                }
+                        Status};
                 rowTeacherInfoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTeacherInfoRow);
                 return rowTeacherInfoRow;
@@ -3005,7 +2983,6 @@ namespace ClassManagement.Data {
                 this.columnDoB = base.Columns["DoB"];
                 this.columnCityLive = base.Columns["CityLive"];
                 this.columnStatus = base.Columns["Status"];
-                this.columnUserId = base.Columns["UserId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3021,8 +2998,6 @@ namespace ClassManagement.Data {
                 base.Columns.Add(this.columnCityLive);
                 this.columnStatus = new global::System.Data.DataColumn("Status", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus);
-                this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -3377,17 +3352,6 @@ namespace ClassManagement.Data {
                     return ((RoleUserRow[])(base.GetChildRows(this.Table.ChildRelations["FK_RoleUser_Role"])));
                 }
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow[] GetUserRows() {
-                if ((this.Table.ChildRelations["FK_User_Role"] == null)) {
-                    return new UserRow[0];
-                }
-                else {
-                    return ((UserRow[])(base.GetChildRows(this.Table.ChildRelations["FK_User_Role"])));
-                }
-            }
         }
         
         /// <summary>
@@ -3439,23 +3403,23 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow UserRow {
-                get {
-                    return ((UserRow)(this.GetParentRow(this.Table.ParentRelations["FK_RoleUser_User"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_RoleUser_User"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public RoleRow RoleRow {
                 get {
                     return ((RoleRow)(this.GetParentRow(this.Table.ParentRelations["FK_RoleUser_Role"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_RoleUser_Role"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public UserRow UserRow {
+                get {
+                    return ((UserRow)(this.GetParentRow(this.Table.ParentRelations["FK_RoleUser_User"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_RoleUser_User"]);
                 }
             }
         }
@@ -3472,17 +3436,6 @@ namespace ClassManagement.Data {
             internal UserRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableUser = ((UserDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int UserId {
-                get {
-                    return ((int)(this[this.tableUser.UserIdColumn]));
-                }
-                set {
-                    this[this.tableUser.UserIdColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3509,17 +3462,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int RoleId {
-                get {
-                    return ((int)(this[this.tableUser.RoleIdColumn]));
-                }
-                set {
-                    this[this.tableUser.RoleIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool Status {
                 get {
                     return ((bool)(this[this.tableUser.StatusColumn]));
@@ -3531,13 +3473,91 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public RoleRow RoleRow {
+            public int ID {
                 get {
-                    return ((RoleRow)(this.GetParentRow(this.Table.ParentRelations["FK_User_Role"])));
+                    return ((int)(this[this.tableUser.IDColumn]));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_User_Role"]);
+                    this[this.tableUser.IDColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int TeacherInfoId {
+                get {
+                    try {
+                        return ((int)(this[this.tableUser.TeacherInfoIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TeacherInfoId\' in table \'User\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUser.TeacherInfoIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int StudentInfoId {
+                get {
+                    try {
+                        return ((int)(this[this.tableUser.StudentInfoIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StudentInfoId\' in table \'User\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUser.StudentInfoIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public StudentInfoRow StudentInfoRow {
+                get {
+                    return ((StudentInfoRow)(this.GetParentRow(this.Table.ParentRelations["FK_User_Student"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_User_Student"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public TeacherInfoRow TeacherInfoRow {
+                get {
+                    return ((TeacherInfoRow)(this.GetParentRow(this.Table.ParentRelations["FK_User_Teacher"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_User_Teacher"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTeacherInfoIdNull() {
+                return this.IsNull(this.tableUser.TeacherInfoIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTeacherInfoIdNull() {
+                this[this.tableUser.TeacherInfoIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStudentInfoIdNull() {
+                return this.IsNull(this.tableUser.StudentInfoIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStudentInfoIdNull() {
+                this[this.tableUser.StudentInfoIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3548,28 +3568,6 @@ namespace ClassManagement.Data {
                 }
                 else {
                     return ((RoleUserRow[])(base.GetChildRows(this.Table.ChildRelations["FK_RoleUser_User"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public StudentInfoRow[] GetStudentInfoRows() {
-                if ((this.Table.ChildRelations["FK_StudentInfo_User"] == null)) {
-                    return new StudentInfoRow[0];
-                }
-                else {
-                    return ((StudentInfoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_StudentInfo_User"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public TeacherInfoRow[] GetTeacherInfoRows() {
-                if ((this.Table.ChildRelations["FK_TeacherInfo_User"] == null)) {
-                    return new TeacherInfoRow[0];
-                }
-                else {
-                    return ((TeacherInfoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TeacherInfo_User"])));
                 }
             }
         }
@@ -3725,33 +3723,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int UserId {
-                get {
-                    try {
-                        return ((int)(this[this.tableStudentInfo.UserIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'UserId\' in table \'StudentInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableStudentInfo.UserIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow UserRow {
-                get {
-                    return ((UserRow)(this.GetParentRow(this.Table.ParentRelations["FK_StudentInfo_User"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_StudentInfo_User"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDoBNull() {
                 return this.IsNull(this.tableStudentInfo.DoBColumn);
             }
@@ -3776,24 +3747,23 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsUserIdNull() {
-                return this.IsNull(this.tableStudentInfo.UserIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetUserIdNull() {
-                this[this.tableStudentInfo.UserIdColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public StudentInClassRow[] GetStudentInClassRows() {
                 if ((this.Table.ChildRelations["FK_StudentInClass_Student"] == null)) {
                     return new StudentInClassRow[0];
                 }
                 else {
                     return ((StudentInClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_StudentInClass_Student"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public UserRow[] GetUserRows() {
+                if ((this.Table.ChildRelations["FK_User_Student"] == null)) {
+                    return new UserRow[0];
+                }
+                else {
+                    return ((UserRow[])(base.GetChildRows(this.Table.ChildRelations["FK_User_Student"])));
                 }
             }
         }
@@ -3994,33 +3964,6 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int UserId {
-                get {
-                    try {
-                        return ((int)(this[this.tableTeacherInfo.UserIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'UserId\' in table \'TeacherInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableTeacherInfo.UserIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public UserRow UserRow {
-                get {
-                    return ((UserRow)(this.GetParentRow(this.Table.ParentRelations["FK_TeacherInfo_User"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TeacherInfo_User"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDoBNull() {
                 return this.IsNull(this.tableTeacherInfo.DoBColumn);
             }
@@ -4045,14 +3988,13 @@ namespace ClassManagement.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsUserIdNull() {
-                return this.IsNull(this.tableTeacherInfo.UserIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetUserIdNull() {
-                this[this.tableTeacherInfo.UserIdColumn] = global::System.Convert.DBNull;
+            public UserRow[] GetUserRows() {
+                if ((this.Table.ChildRelations["FK_User_Teacher"] == null)) {
+                    return new UserRow[0];
+                }
+                else {
+                    return ((UserRow[])(base.GetChildRows(this.Table.ChildRelations["FK_User_Teacher"])));
+                }
             }
         }
         
@@ -4513,8 +4455,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, Type, SubjectId, TimeStart, TimeEnd, ScheduledClass, TotalStuden" +
-                "t, Status FROM dbo.Class";
+            this._commandCollection[0].CommandText = "SELECT * FROM dbo.Class";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4838,7 +4779,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, RoleName FROM dbo.Role";
+            this._commandCollection[0].CommandText = "SELECT * FROM dbo.Role";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5132,7 +5073,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, RoleId, UserId FROM dbo.RoleUser";
+            this._commandCollection[0].CommandText = "SELECT * FROM dbo.RoleUser";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5380,36 +5321,41 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "User";
-            tableMapping.ColumnMappings.Add("UserId", "UserId");
             tableMapping.ColumnMappings.Add("Username", "Username");
             tableMapping.ColumnMappings.Add("Password", "Password");
-            tableMapping.ColumnMappings.Add("RoleId", "RoleId");
             tableMapping.ColumnMappings.Add("Status", "Status");
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("TeacherInfoId", "TeacherInfoId");
+            tableMapping.ColumnMappings.Add("StudentInfoId", "StudentInfoId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[User] WHERE (([UserId] = @Original_UserId))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[User] WHERE (([ID] = @Original_ID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[User] ([Username], [Password], [RoleId], [Status]) VALUES (@Us" +
-                "ername, @Password, @RoleId, @Status)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[User] ([Username], [Password], [Status], [TeacherInfoId], [Stu" +
+                "dentInfoId]) VALUES (@Username, @Password, @Status, @TeacherInfoId, @StudentInfo" +
+                "Id)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Username", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RoleId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoleId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TeacherInfoId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TeacherInfoId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StudentInfoId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StudentInfoId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[User] SET [Username] = @Username, [Password] = @Password, [RoleId] " +
-                "= @RoleId, [Status] = @Status WHERE (([UserId] = @Original_UserId))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[User] SET [Username] = @Username, [Password] = @Password, [Status] " +
+                "= @Status, [TeacherInfoId] = @TeacherInfoId, [StudentInfoId] = @StudentInfoId WH" +
+                "ERE (([ID] = @Original_ID))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Username", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RoleId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RoleId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TeacherInfoId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TeacherInfoId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StudentInfoId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StudentInfoId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5425,7 +5371,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT UserId, Username, Password, RoleId, Status FROM dbo.[User]";
+            this._commandCollection[0].CommandText = "SELECT * FROM dbo.[User]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5486,8 +5432,8 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_UserId) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_UserId));
+        public virtual int Delete(int Original_ID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5508,7 +5454,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Username, string Password, int RoleId, bool Status) {
+        public virtual int Insert(string Username, string Password, bool Status, global::System.Nullable<int> TeacherInfoId, global::System.Nullable<int> StudentInfoId) {
             if ((Username == null)) {
                 throw new global::System.ArgumentNullException("Username");
             }
@@ -5521,8 +5467,19 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Password));
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(RoleId));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Status));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(Status));
+            if ((TeacherInfoId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(TeacherInfoId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((StudentInfoId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(StudentInfoId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5543,7 +5500,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Username, string Password, int RoleId, bool Status, int Original_UserId) {
+        public virtual int Update(string Username, string Password, bool Status, global::System.Nullable<int> TeacherInfoId, global::System.Nullable<int> StudentInfoId, int Original_ID) {
             if ((Username == null)) {
                 throw new global::System.ArgumentNullException("Username");
             }
@@ -5556,9 +5513,20 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Password));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(RoleId));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Status));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_UserId));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(Status));
+            if ((TeacherInfoId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(TeacherInfoId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((StudentInfoId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(StudentInfoId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5703,20 +5671,20 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[StudentInClass] WHERE (([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [StudentInClass] WHERE (([ID] = @Original_ID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[StudentInClass] ([ClassId], [StudentId]) VALUES (@ClassId, @St" +
-                "udentId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [StudentInClass] ([ClassId], [StudentId]) VALUES (@ClassId, @StudentI" +
+                "d)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StudentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StudentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[StudentInClass] SET [ClassId] = @ClassId, [StudentId] = @StudentId " +
-                "WHERE (([ID] = @Original_ID))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [StudentInClass] SET [ClassId] = @ClassId, [StudentId] = @StudentId WHERE " +
+                "(([ID] = @Original_ID))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StudentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StudentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -5736,7 +5704,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, ClassId, StudentId FROM dbo.StudentInClass";
+            this._commandCollection[0].CommandText = "SELECT        ID, ClassId, StudentId\r\nFROM            StudentInClass";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5989,7 +5957,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             tableMapping.ColumnMappings.Add("DoB", "DoB");
             tableMapping.ColumnMappings.Add("CityLive", "CityLive");
             tableMapping.ColumnMappings.Add("Status", "Status");
-            tableMapping.ColumnMappings.Add("UserId", "UserId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -5998,25 +5965,22 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[StudentInfo] ([FullName], [DoB], [CityLive], [Status], [UserId" +
-                "]) VALUES (@FullName, @DoB, @CityLive, @Status, @UserId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[StudentInfo] ([FullName], [DoB], [CityLive], [Status]) VALUES " +
+                "(@FullName, @DoB, @CityLive, @Status)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FullName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FullName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DoB", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DoB", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CityLive", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CityLive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[StudentInfo] SET [FullName] = @FullName, [DoB] = @DoB, [CityLive] =" +
-                " @CityLive, [Status] = @Status, [UserId] = @UserId WHERE (([ID] = @Original_ID))" +
-                "";
+                " @CityLive, [Status] = @Status WHERE (([ID] = @Original_ID))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FullName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FullName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DoB", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DoB", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CityLive", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CityLive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -6033,7 +5997,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, FullName, DoB, CityLive, Status, UserId FROM dbo.StudentInfo";
+            this._commandCollection[0].CommandText = "SELECT * FROM dbo.StudentInfo";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6116,7 +6080,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, global::System.Nullable<int> UserId) {
+        public virtual int Insert(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status) {
             if ((FullName == null)) {
                 throw new global::System.ArgumentNullException("FullName");
             }
@@ -6136,12 +6100,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(CityLive));
             }
             this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Status));
-            if ((UserId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(UserId.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6162,7 +6120,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, global::System.Nullable<int> UserId, int Original_ID) {
+        public virtual int Update(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, int Original_ID) {
             if ((FullName == null)) {
                 throw new global::System.ArgumentNullException("FullName");
             }
@@ -6182,13 +6140,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(CityLive));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Status));
-            if ((UserId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(UserId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6372,7 +6324,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, Description, Type, Status FROM dbo.Subject";
+            this._commandCollection[0].CommandText = "SELECT  *  FROM dbo.Subject";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6659,34 +6611,30 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             tableMapping.ColumnMappings.Add("DoB", "DoB");
             tableMapping.ColumnMappings.Add("CityLive", "CityLive");
             tableMapping.ColumnMappings.Add("Status", "Status");
-            tableMapping.ColumnMappings.Add("UserId", "UserId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[TeacherInfo] WHERE (([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [TeacherInfo] WHERE (([ID] = @Original_ID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[TeacherInfo] ([FullName], [DoB], [CityLive], [Status], [UserId" +
-                "]) VALUES (@FullName, @DoB, @CityLive, @Status, @UserId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [TeacherInfo] ([FullName], [DoB], [CityLive], [Status]) VALUES (@Full" +
+                "Name, @DoB, @CityLive, @Status)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FullName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FullName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DoB", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DoB", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CityLive", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CityLive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[TeacherInfo] SET [FullName] = @FullName, [DoB] = @DoB, [CityLive] =" +
-                " @CityLive, [Status] = @Status, [UserId] = @UserId WHERE (([ID] = @Original_ID))" +
-                "";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [TeacherInfo] SET [FullName] = @FullName, [DoB] = @DoB, [CityLive] = @City" +
+                "Live, [Status] = @Status WHERE (([ID] = @Original_ID))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FullName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FullName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DoB", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DoB", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CityLive", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CityLive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Status", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Status", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -6703,7 +6651,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, FullName, DoB, CityLive, Status, UserId FROM dbo.TeacherInfo";
+            this._commandCollection[0].CommandText = "SELECT        *\r\nFROM            TeacherInfo";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6786,7 +6734,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, global::System.Nullable<int> UserId) {
+        public virtual int Insert(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status) {
             if ((FullName == null)) {
                 throw new global::System.ArgumentNullException("FullName");
             }
@@ -6806,12 +6754,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(CityLive));
             }
             this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(Status));
-            if ((UserId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(UserId.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6832,7 +6774,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, global::System.Nullable<int> UserId, int Original_ID) {
+        public virtual int Update(string FullName, global::System.Nullable<global::System.DateTime> DoB, string CityLive, bool Status, int Original_ID) {
             if ((FullName == null)) {
                 throw new global::System.ArgumentNullException("FullName");
             }
@@ -6852,13 +6794,7 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(CityLive));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Status));
-            if ((UserId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(UserId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7130,6 +7066,42 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(ClassManagementDb dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._studentInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._studentInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._subjectTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._subjectTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._teacherInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._teacherInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._classTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._classTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._roleTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Role.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7145,33 +7117,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._userTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._subjectTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._subjectTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._classTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._classTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._studentInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._studentInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -7193,15 +7138,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._teacherInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._teacherInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -7212,6 +7148,38 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(ClassManagementDb dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._studentInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._studentInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._subjectTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._subjectTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._teacherInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._teacherInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._classTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._classTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._roleTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Role.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -7225,30 +7193,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._userTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._subjectTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._subjectTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._classTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._classTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._studentInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._studentInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7268,14 +7212,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._teacherInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._teacherInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -7286,14 +7222,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(ClassManagementDb dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._teacherInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._teacherInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._studentInClassTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.StudentInClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7310,30 +7238,6 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._studentInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._studentInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._classTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._classTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._subjectTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._subjectTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._userTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.User.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7347,6 +7251,38 @@ namespace ClassManagement.Data.ClassManagementDbTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._roleTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._classTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Class.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._classTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._teacherInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.TeacherInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._teacherInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._subjectTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Subject.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._subjectTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._studentInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.StudentInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._studentInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
