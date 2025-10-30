@@ -10,13 +10,15 @@
 <body>
     <form id="form1" runat="server">
         <telerik:RadScriptManager runat="server" ID="RadScriptManager1" />
-        <telerik:RadSkinManager ID="RadSkinManager1" runat="server" ShowChooser="true" />
+        <div class="webTitle">
+            <h1>CLASS MANAGEMENT SYSTEM</h1>
+        </div>
         <div class="demo-container no-bg">
             <div class="signUpScenario">
                 <div class="signUpHeader">
                     <div class="formTitle">Sign Up</div>
                     <div class="signButton">
-                        <telerik:RadButton RenderMode="Lightweight" ID="ImageButton" runat="server" Width="85px" Height="28px" Text="Sign in" Skin="Default">
+                        <telerik:RadButton RenderMode="Lightweight" ID="ImageButton" runat="server" Width="85px" Height="28px" Text="Sign in" Skin="Default" onClick="btnSignIn_Click">
                             <Icon PrimaryIconCssClass="rbIcon rbNext" PrimaryIconLeft="5px" PrimaryIconTop="5px" />
                         </telerik:RadButton>
                     </div>
@@ -26,12 +28,6 @@
                         <label for="txtFullName">Full name:</label>
                         <asp:TextBox ID="txtFullName" runat="server" CssClass="itext"></asp:TextBox>
                     </div>
-                    <%--<div class="formElements">
-                        <label for="txtDateOfBirth">Date of birth:</label>
-                        <%--<asp:TextBox ID="txtDateOfBirth" runat="server" CssClass="itext"></asp:TextBox>
-                        <telerik:RadDatePicker RenderMode="Lightweight" ID="txtDateOfBirth" Width="50%" ClientEvents-OnDateSelected="OnDateSelected" runat="server">
-                        </telerik:RadDatePicker>
-                    </div>--%>
                     <div class="formElements">
                         <label for="txtDateOfBirth">Date of birth:</label>
                         <telerik:RadDatePicker

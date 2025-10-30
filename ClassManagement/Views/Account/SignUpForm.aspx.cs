@@ -13,6 +13,11 @@ namespace ClassManagement.Views.Account
         {
         }
 
+        protected void btnSignIn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Views/Account/SignInForm.aspx");
+        }
+
         protected void btnCreateUser_Click(object sender, EventArgs e)
         {
             string fullName = txtFullName.Text.Trim();

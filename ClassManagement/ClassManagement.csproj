@@ -254,6 +254,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Views\Account\SignInForm.aspx.cs">
+      <DependentUpon>SignInForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Account\SignInForm.aspx.designer.cs">
+      <DependentUpon>SignInForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\SignUpForm.aspx.cs">
       <DependentUpon>SignUpForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -263,6 +270,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Account\SignInForm.aspx" />
     <Content Include="Views\Account\SignUpForm.aspx" />
     <Content Include="Views\Account\Styles.css" />
     <Content Include="web.config" />
@@ -317,7 +325,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
