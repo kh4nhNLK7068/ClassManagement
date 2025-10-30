@@ -18,9 +18,9 @@ namespace ClassManagement.Models.Entities
         [Required]
         public bool Status { get; set; } = true;
         [ForeignKey("TeacherInfo")]
-        public int TeacherInfoId { get; set; }
+        public int? TeacherInfoId { get; set; }
         [ForeignKey("StudentInfo")]
-        public int StudentInfoId { get; set; }
+        public int? StudentInfoId { get; set; }
 
         //Navigation
         public virtual TeacherInfo TeacherInfo { get; set; }

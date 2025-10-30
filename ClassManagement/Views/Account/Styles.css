@@ -1,0 +1,125 @@
+﻿body {
+    background-color: #f3f3f3;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: url(../../images/bgSignUp.jpg) center center / cover no-repeat;
+    background-attachment: fixed;
+    color: !important white;
+}
+
+.signUpScenario {
+    width: 400px;
+    height: auto;
+    margin: 60px auto;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    background-color: rgba(256, 256, 256, 0.7);
+}
+
+.signUpHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    color: white;
+}
+
+    .signUpHeader h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+    }
+
+    .signUpHeader .formTitle {
+        color: black;
+        font-size: 2rem;
+    }
+.signButton {
+    text-align: right;
+    color: black;
+    font-size:14px;
+}
+
+.formElements {
+    margin-bottom: 20px;
+    font-size: inherit;
+
+}
+
+    .formElements label {
+        display: inline-block;
+        width: 90px;
+        text-align: right;
+        margin-right: 10px;
+        color: #444;
+        font-weight: 500;
+    }
+
+    .formElements .itext {
+        width: 220px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        transition: border-color 0.3s ease;
+    }
+
+        .formElements .itext:focus {
+            border-color: #6ca0dc;
+            outline: none;
+        }
+
+.subscription {
+    margin: 10px 0 0 100px;
+    font-size: 12px;
+    color: #333;
+}
+
+    .subscription div {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    .subscription span {
+        margin-left: 8px;
+    }
+
+.signUp {
+    text-align: center;
+    margin-top: 25px;
+}
+
+    .signUp .RadButton {
+        margin: 0 5px;
+    }
+
+.signUpBody {
+    font-size: 14px;
+}
+.RadButton {
+    font-size: 12px;
+    border-radius: 6px !important;
+}
+
+    .RadButton.rbPrimary {
+        background-color: #58b957 !important;
+        border: none !important;
+        transition: background-color 0.3s;
+    }
+
+        .RadButton.rbPrimary:hover {
+            background-color: #4aa24b !important;
+        }
+
+    .RadButton.rbCancel {
+        background-color: #ddd !important;
+        color: #333 !important;
+        border: none !important;
+        transition: background-color 0.3s;
+    }
+
+        .RadButton.rbCancel:hover {
+            background-color: #ccc !important;
+        }
