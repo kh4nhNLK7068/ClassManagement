@@ -25,10 +25,10 @@
                     </div>
                     <div class="formElements">
                         <label for="txtPassword">Password:</label>
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="itext"></asp:TextBox>
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="itext" TextMode="Password"></asp:TextBox>
                     </div>
                     <div class="signUp">
-                        <telerik:RadButton RenderMode="Lightweight" ID="RadButton5" runat="server" Width="112px" Height="28px" Text="Sign In" Skin="Default">
+                        <telerik:RadButton RenderMode="Lightweight" ID="RadButton5" runat="server" Width="112px" Height="28px" Text="Sign In" Skin="Default" OnClick="btnLogin_Click">
                         </telerik:RadButton>
                         <asp:Label ID="lblResult" runat="server" ForeColor="Green" />
                     </div>

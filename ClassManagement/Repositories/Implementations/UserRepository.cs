@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Configuration;
 using ClassManagement.Models.Entities;
+using System.Linq;
 
 public class UserRepository : IUserRepository
 {
@@ -28,6 +29,17 @@ public class UserRepository : IUserRepository
         using (var conn = GetConnection())
         {
             return conn.QueryFirstOrDefault<User>("SELECT * FROM [User] WHERE Id = @Id", new { Id = id });
+        }
+    }
+
+    public User GetUser(string username, string password)
+    {
+        using (var conn = GetConnection())
+        {
+            return conn.QueryFirstOrDefault<User>(
+                "SELECT * FROM [User] WHERE Username = @Username AND Password = @Password",
+                new { Username = username, Password = password }
+            );
         }
     }
 
@@ -66,14 +78,4 @@ public class UserRepository : IUserRepository
     {
         throw new System.NotImplementedException();
     }
-
-    /*public void Add(User user)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Update(User user)
-    {
-        throw new System.NotImplementedException();
-    }*/
 }
