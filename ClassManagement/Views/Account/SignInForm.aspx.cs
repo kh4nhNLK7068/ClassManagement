@@ -23,7 +23,7 @@ namespace ClassManagement.Views.Account
             if (user != null)
             {
                 string userRole = "";
-                if (user.StudentInfoId != null && user.TeacherInfoId != null)
+                if (user.StudentInfoId == null && user.TeacherInfoId == null)
                 {
                     userRole = "IT";
                 }
