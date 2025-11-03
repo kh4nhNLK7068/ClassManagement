@@ -20,7 +20,8 @@ namespace ClassManagement.Helpers
             var context = HttpContext.Current;
             var path = context.Request.AppRelativeCurrentExecutionFilePath.ToLower();
 
-            if (path.Contains("signinform.aspx") ||
+            if (path.EndsWith(".axd") ||
+                path.Contains("signinform.aspx") ||
                 path.Contains("signupform.aspx") ||
                 path.StartsWith("~/scripts") ||
                 path.StartsWith("~/styles") ||
