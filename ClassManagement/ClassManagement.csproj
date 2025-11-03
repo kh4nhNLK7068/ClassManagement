@@ -228,6 +228,7 @@
     <Content Include="App_Data\RadSpell\fr-FR.tdf" />
     <Content Include="Global.asax" />
     <Content Include="images\bgSignUp.jpg" />
+    <Content Include="images\cms-logo.png" />
     <Content Include="MasterPage.Master" />
     <Content Include="MasterPageSingleMenu.Master" />
   </ItemGroup>
@@ -337,11 +338,19 @@
     <Compile Include="Views\Account\SignUpForm.aspx.designer.cs">
       <DependentUpon>SignUpForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dashboard\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignInForm.aspx" />
     <Content Include="Views\Account\SignUpForm.aspx" />
     <Content Include="Views\Account\Styles.css" />
+    <Content Include="Views\Dashboard\Dashboard.aspx" />
     <Content Include="web.config" />
     <Content Include="Data\ClassManagementDb.xsc">
       <DependentUpon>ClassManagementDb.xsd</DependentUpon>
@@ -365,7 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202510280836351_InitialCreate.resx">
@@ -393,7 +401,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
