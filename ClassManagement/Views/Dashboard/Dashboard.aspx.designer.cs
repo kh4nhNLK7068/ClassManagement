@@ -13,11 +13,38 @@ public partial class Dashboard
 {
 
     /// <summary>
-    /// PieChartBrowserUsage control.
+    /// RadHtmlChart1 control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Telerik.Web.UI.RadHtmlChart PieChartBrowserUsage;
+    protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart1;
+
+    /// <summary>
+    /// RadHtmlChart2 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart2;
+
+    /// <summary>
+    /// RadHtmlChart3 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart3;
+
+    /// <summary>
+    /// RadHtmlChartBar control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChartBar;
 }
