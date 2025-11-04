@@ -39,7 +39,7 @@
         </Legend>
     </telerik:RadHtmlChart>
 
-    <telerik:RadHtmlChart runat="server" ID="RadHtmlChart3" Width="700px" Height="450px" Style="margin: 0 auto;">
+    <telerik:RadHtmlChart runat="server" ID="RadHtmlChart3" Width="700px" Height="450px">
         <ChartTitle Text="Number of scheduled classes" />
         <PlotArea>
             <Series>
