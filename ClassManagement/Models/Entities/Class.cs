@@ -27,7 +27,7 @@ namespace ClassManagement.Models.Entities
 
         public string ScheduledClass { get; set; }
         public int TotalStudent { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         // Navigation
         /*

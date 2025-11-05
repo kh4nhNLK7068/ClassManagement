@@ -60,6 +60,8 @@
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Dashboard" NavigateUrl="~/Views/Dashboard/Dashboard.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
+                                        <telerik:RadMenuItem Text="My Class" NavigateUrl="~/Views/MyClass/MyClass.aspx" />
+                                        <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Grid Page" NavigateUrl="Grid.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="ListView Page" NavigateUrl="ListView.aspx" />
@@ -85,7 +87,7 @@
                         <Columns>
                             <telerik:LayoutColumn CssClass="footer">
                                 <hr />
-                                Footer: © 2002-2015 Company Inc, 201 Jones Rd, Waltham, MA 03451
+                                © 2025 Saigon Ground Services JSC, Tan Son Nhat International Airport, Ho Chi Minh City, Vietnam
                             </telerik:LayoutColumn>
                         </Columns>
                     </telerik:LayoutRow>

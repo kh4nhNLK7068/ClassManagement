@@ -345,12 +345,20 @@
     <Compile Include="Views\Dashboard\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\MyClass\MyClass.aspx.cs">
+      <DependentUpon>MyClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\MyClass\MyClass.aspx.designer.cs">
+      <DependentUpon>MyClass.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignInForm.aspx" />
     <Content Include="Views\Account\SignUpForm.aspx" />
     <Content Include="Views\Account\Styles.css" />
     <Content Include="Views\Dashboard\Dashboard.aspx" />
+    <Content Include="Views\MyClass\MyClass.aspx" />
     <Content Include="web.config" />
     <Content Include="Data\ClassManagementDb.xsc">
       <DependentUpon>ClassManagementDb.xsd</DependentUpon>
@@ -401,7 +409,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
