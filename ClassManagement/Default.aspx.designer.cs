@@ -7,9 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
 namespace ClassManagement
 {
+
+
     public partial class Default
     {
 
@@ -21,15 +22,6 @@ namespace ClassManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageLayout RadPageLayout1;
-
-        /// <summary>
-        /// RadButton0 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadButton RadButton0;
 
         /// <summary>
         /// Content1 control.

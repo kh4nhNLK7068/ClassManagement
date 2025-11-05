@@ -11,19 +11,14 @@
             <telerik:LayoutRow>
                 <Columns>
                     <telerik:LayoutColumn CssClass="jumbotron">
-                        <h1>H1 title, font size 36px</h1>
-                        <h2>H2 Title, font size 30 px. Duis nibh dolor, rhoncus in euismod at, feugiat id magna.
-                            <telerik:RadButton runat="server" ID="RadButton0" Text="Button" ButtonType="SkinnedButton"></telerik:RadButton>
-                        </h2>
-
+                        <h1>Class Management System</h1>
                     </telerik:LayoutColumn>
                 </Columns>
             </telerik:LayoutRow>
             <telerik:LayoutRow>
                 <Columns>
                     <telerik:LayoutColumn HiddenMd="true" HiddenSm="true" HiddenXs="true">
-                        <h3>H3 text, font size 24 px </h3>
-                        Ut aliquam elit eget quam tincidunt, et aliquam libero congue. Phasellus aliquet sed quam vitae dictum. Aliquam erat volutpat. Morbi accumsan a mi quis pretium. 
+                        </br>Class Management System is a classroom management web application built with ASP.NET Web Forms (Telerik UI). The system supports multiple user roles (IT, Teacher, Student) with management, statistics, and visual data display functions via Dashboard charts.
                     </telerik:LayoutColumn>
                 </Columns>
             </telerik:LayoutRow>

@@ -20,10 +20,17 @@
                     <%--Header--%>
                     <telerik:LayoutRow CssClass="header">
                         <Columns>
+                            <%--Logo--%>
+                            <telerik:LayoutColumn Span="2" SpanMd="3" SpanSm="12" SpanXs="12" Style="position: relative;">
+                                <a href="../../Default.aspx" class="logo">
+                                    <img src='<%= ResolveUrl("~/images/cms-logo.png") %>' alt="site logo" />
+                                </a>
+                            </telerik:LayoutColumn>
+
                             <%-- User infor side --%>
                             <telerik:LayoutColumn
                                 Span="12" SpanMd="12" SpanSm="12" SpanXs="12"
-                                Style="width: 100%; text-align: right; display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 10px 20px;">
+                                Style="position: absolute; width: 100%; text-align: right; display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 10px 20px;">
 
                                 <asp:Label
                                     ID="lblUserName"
@@ -38,13 +45,6 @@
                                     Style="font-weight: bold; font-size: 14px; color: white; text-decoration: none;"
                                     OnClientMouseOver="this.style.backgroundColor='#d32f2f'"
                                     OnClientMouseOut="this.style.backgroundColor='#f44336'" />
-                            </telerik:LayoutColumn>
-
-                            <%--Logo--%>
-                            <telerik:LayoutColumn Span="2" SpanMd="3" SpanSm="12" SpanXs="12">
-                                <a href="#" class="logo">
-                                    <img src='<%= ResolveUrl("~/images/cms-logo.png") %>' alt="site logo" />
-                                </a>
                             </telerik:LayoutColumn>
                         </Columns>
                     </telerik:LayoutRow>
