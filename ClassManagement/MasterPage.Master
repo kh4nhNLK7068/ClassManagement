@@ -43,25 +43,8 @@
                             <%--Logo--%>
                             <telerik:LayoutColumn Span="2" SpanMd="3" SpanSm="12" SpanXs="12">
                                 <a href="#" class="logo">
-                                    <%--<img src="images/logo.png" alt="site logo" />--%>
                                     <img src='<%= ResolveUrl("~/images/cms-logo.png") %>' alt="site logo" />
                                 </a>
-                            </telerik:LayoutColumn>
-
-                            <%--Main Nav--%>
-                            <telerik:LayoutColumn Span="10" SpanMd="9" SpanSm="12" SpanXs="12">
-                                <telerik:RadMenu ID="RadMenu1" runat="server" RenderMode="Auto">
-                                    <Items>
-                                        <telerik:RadMenuItem Text="Home" NavigateUrl="Default.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Dashboard" NavigateUrl="~/Views/Dashboard/Dashboard.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Grid Page" NavigateUrl="Grid.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="ListView Page" NavigateUrl="ListView.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                    </Items>
-                                </telerik:RadMenu>
                             </telerik:LayoutColumn>
                         </Columns>
                     </telerik:LayoutRow>
@@ -73,21 +56,14 @@
                             <telerik:LayoutColumn Span="2" HiddenMd="true" HiddenSm="true" HiddenXs="true">
                                 <telerik:RadMenu ID="RadMenu2" CssClass="sidebar" Flow="Vertical" runat="server">
                                     <Items>
-                                        <telerik:RadMenuItem Text="Menu item 1" />
+                                        <telerik:RadMenuItem Text="Home" NavigateUrl="Default.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 2" />
+                                        <telerik:RadMenuItem Text="Dashboard" NavigateUrl="~/Views/Dashboard/Dashboard.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 3" />
+                                        <telerik:RadMenuItem Text="Grid Page" NavigateUrl="Grid.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 4" />
+                                        <telerik:RadMenuItem Text="ListView Page" NavigateUrl="ListView.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 5" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 6" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 7" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Menu item 8" />
                                     </Items>
                                 </telerik:RadMenu>
                             </telerik:LayoutColumn>
