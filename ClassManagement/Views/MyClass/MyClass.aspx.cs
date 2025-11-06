@@ -12,15 +12,19 @@ namespace ClassManagement.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void RadGridMyClass_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            int userId = 6;
-
             using (var connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
+                string Username = (String)Session["Username"];
+                var userIdSql = @"
+                    SELECT [ID] FROM [User] WHERE Username = @Username;
+                ";
+                var userId = connection.Query<int>(userIdSql, new { Username = Username });
+
                 var sql = @"
                     SELECT DISTINCT
                        c.ID,
