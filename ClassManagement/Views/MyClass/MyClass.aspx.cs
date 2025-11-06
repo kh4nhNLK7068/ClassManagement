@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using ClassManagement.Models.Dtos;
 using ClassManagement.Models.Entities;
 using Dapper;
 
@@ -24,6 +25,7 @@ namespace ClassManagement.Views
                     SELECT DISTINCT
                        c.ID,
                        c.[Name] AS Name,
+                       c.[Type] AS Type,
                        subj.[Name] AS SubjectName,
                        c.ScheduledClass,
                        CONVERT(VARCHAR(5), c.TimeStart, 108) AS TimeStart,
@@ -38,7 +40,7 @@ namespace ClassManagement.Views
                     WHERE u.ID = @UserId
                     ORDER BY c.ID;
                 ";
-                var data = connection.Query<Class>(sql, new { UserId = userId }).ToList();
+                var data = connection.Query<ClassDto>(sql, new { UserId = userId }).ToList();
                 RadGridMyClass.DataSource = data;
             }
         }
@@ -46,12 +48,12 @@ namespace ClassManagement.Views
         protected void RadGridMyClass_DetailTableDataBind(object sender, Telerik.Web.UI.GridDetailTableDataBindEventArgs e)
         {
             var parentItem = (Telerik.Web.UI.GridDataItem)e.DetailTableView.ParentItem;
-            int classId = Convert.ToInt32(parentItem.GetDataKeyValue("ClassId"));
+            int classId = Convert.ToInt32(parentItem.GetDataKeyValue("ID"));
 
             using (var connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 var sql = @"
-                    SELECT si.ID AS StudentId,
+                    SELECT si.ID,
                            si.FullName,
                            si.DoB,
                            si.CityLive,
@@ -62,7 +64,7 @@ namespace ClassManagement.Views
                     ORDER BY si.FullName;
                 ";
 
-                e.DetailTableView.DataSource = connection.Query(sql, new { ClassId = classId });
+                e.DetailTableView.DataSource = connection.Query<StudentInfo>(sql, new { ClassId = classId });
             }
         }
 

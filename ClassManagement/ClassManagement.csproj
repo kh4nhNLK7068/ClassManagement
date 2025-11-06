@@ -312,6 +312,7 @@
       <DependentUpon>202510280836351_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Dtos\ClassDto.cs" />
     <Compile Include="Models\Entities\Class.cs" />
     <Compile Include="Models\Entities\Role.cs" />
     <Compile Include="Models\Entities\RoleUser.cs" />
@@ -409,7 +410,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -16,7 +16,8 @@
 
     <MasterTableView DataKeyNames="ID">
         <Columns>
-            <telerik:GridBoundColumn DataField="ClassName" HeaderText="Class Name" />
+            <telerik:GridBoundColumn DataField="Name" HeaderText="Class Name" />
+            <telerik:GridBoundColumn DataField="Type" HeaderText="Type" />
             <telerik:GridBoundColumn DataField="SubjectName" HeaderText="Subject" />
             <telerik:GridBoundColumn DataField="ScheduledClass" HeaderText="Schedule" />
             <telerik:GridBoundColumn DataField="TimeStart" HeaderText="Start" />
@@ -26,11 +27,11 @@
         </Columns>
 
         <DetailTables>
-            <telerik:GridTableView Name="Students" DataKeyNames="StudentId" Width="100%">
+            <telerik:GridTableView Name="Students" DataKeyNames="ID" Width="100%">
                 <Columns>
                     <telerik:GridBoundColumn DataField="FullName" HeaderText="Student Name" />
                     <telerik:GridBoundColumn DataField="DoB" HeaderText="Date of Birth" DataFormatString="{0:yyyy-MM-dd}" />
-                    <telerik:GridBoundColumn DataField="CityLive" HeaderText="City" />
+                    <telerik:GridBoundColumn DataField="CityLive" HeaderText="City live" />
                     <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
                 </Columns>
             </telerik:GridTableView>
