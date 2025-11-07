@@ -62,6 +62,8 @@
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="My Class" NavigateUrl="~/Views/MyClass/MyClass.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
+                                        <telerik:RadMenuItem Text="Curriculum" NavigateUrl="~/Views/Curriculum/Curriculum.aspx" />
+                                        <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Sample page 1" NavigateUrl="Grid.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Sample page 2" NavigateUrl="ListView.aspx" />
