@@ -8,16 +8,38 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <h2 style="margin-bottom: 20px; color: #333;">Subject List</h2>
+    <h2 style="margin-bottom: 20px; color: #333; position: relative;">Subject List</h2>
+
+    <telerik:RadDropDownList ID="ddlCreateNew" runat="server" Width="150px" Style="position: absolute; padding-right: 20px; right: 0; top: 0;"
+        DefaultMessage="Create new"
+        AutoPostBack="true"
+        OnSelectedIndexChanged="ddlCreateNew_SelectedIndexChanged">
+        <Items>
+            <telerik:DropDownListItem Text="Subject" Value="Subject" />
+            <telerik:DropDownListItem Text="Class" Value="Class" />
+            <telerik:DropDownListItem Text="Student" Value="Student" />
+        </Items>
+    </telerik:RadDropDownList>
 
     <telerik:RadGrid ID="RadGridSubject" runat="server" AllowPaging="true" AllowSorting="true"
         PageSize="10" AutoGenerateColumns="False"
         OnNeedDataSource="RadGridSubject_NeedDataSource"
-        OnDetailTableDataBind="RadGridClass_DetailTableDataBind">
+        OnDetailTableDataBind="RadGridClass_DetailTableDataBind"
+        OnItemCommand="RadGridSubject_ItemCommand">
 
         <MasterTableView DataKeyNames="ID">
             <Columns>
-                <telerik:GridBoundColumn DataField="Name" HeaderText="Subject Name" />
+                <telerik:GridTemplateColumn HeaderText="Subject Name">
+                    <ItemTemplate>
+                        <asp:LinkButton
+                            ID="lnkSubject"
+                            runat="server"
+                            Text='<%# Eval("Name") %>'
+                            CommandName="EditSubject"
+                            CommandArgument='<%# Eval("ID") %>'
+                            Style="text-decoration: none;" />
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn DataField="Description" HeaderText="Description" />
                 <telerik:GridBoundColumn DataField="Type" HeaderText="Type" />
                 <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
@@ -26,7 +48,17 @@
             <DetailTables>
                 <telerik:GridTableView Name="Classes" DataKeyNames="ID" Width="100%">
                     <Columns>
-                        <telerik:GridBoundColumn DataField="Name" HeaderText="Class Name" />
+                        <telerik:GridTemplateColumn HeaderText="Class Name">
+                            <ItemTemplate>
+                                <asp:LinkButton
+                                    ID="lnkClass"
+                                    runat="server"
+                                    Text='<%# Eval("Name") %>'
+                                    CommandName="EditClass"
+                                    CommandArgument='<%# Eval("ID") %>'
+                                    Style="text-decoration: none;" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="Type" HeaderText="Type" />
                         <telerik:GridBoundColumn DataField="SubjectName" HeaderText="Subject" />
                         <telerik:GridBoundColumn DataField="ScheduledClass" HeaderText="Schedule" />
@@ -39,7 +71,18 @@
                     <DetailTables>
                         <telerik:GridTableView Name="Students" DataKeyNames="ID" Width="100%">
                             <Columns>
-                                <telerik:GridBoundColumn DataField="FullName" HeaderText="Student Name" />
+                                <telerik:GridTemplateColumn HeaderText="Student Name">
+                                    <ItemTemplate>
+                                        <asp:LinkButton
+                                            ID="lnkStudent"
+                                            runat="server"
+                                            Text='<%# Eval("FullName") %>'
+                                            CommandName="EditStudent"
+                                            CommandArgument='<%# Eval("ID") %>'
+                                            Style="text-decoration: none;" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+
                                 <telerik:GridBoundColumn DataField="DoB" HeaderText="Birthday" DataFormatString="{0:dd-MM-yyyy}" />
                                 <telerik:GridBoundColumn DataField="CityLive" HeaderText="City" />
                                 <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />

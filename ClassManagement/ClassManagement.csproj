@@ -345,6 +345,13 @@
     <Compile Include="Views\Curriculum\Curriculum.aspx.designer.cs">
       <DependentUpon>Curriculum.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Curriculum\Modify\CreateSubject.aspx.cs">
+      <DependentUpon>CreateSubject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Curriculum\Modify\CreateSubject.aspx.designer.cs">
+      <DependentUpon>CreateSubject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -365,6 +372,7 @@
     <Content Include="Views\Account\SignUpForm.aspx" />
     <Content Include="Views\Account\Styles.css" />
     <Content Include="Views\Curriculum\Curriculum.aspx" />
+    <Content Include="Views\Curriculum\Modify\CreateSubject.aspx" />
     <Content Include="Views\Dashboard\Dashboard.aspx" />
     <Content Include="Views\MyClass\MyClass.aspx" />
     <Content Include="web.config" />
