@@ -30,12 +30,14 @@ public partial class Curriculum : System.Web.UI.Page
 
     protected void RadGridClass_DetailTableDataBind(object sender, Telerik.Web.UI.GridDetailTableDataBindEventArgs e)
     {
-        var parentItem = (Telerik.Web.UI.GridDataItem)e.DetailTableView.ParentItem;
-        int subjectId = Convert.ToInt32(parentItem.GetDataKeyValue("ID"));
 
-        using (var connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+        var parentItem = (Telerik.Web.UI.GridDataItem)e.DetailTableView.ParentItem;
+        if (e.DetailTableView.Name == "Classes")
         {
-            var sql = @"
+            int subjectId = Convert.ToInt32(parentItem.GetDataKeyValue("ID"));
+            using (var connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            {
+                var sql = @"
                     SELECT c.ID,
                        c.[Name] AS Name,
                        c.[Type] AS Type,
@@ -51,7 +53,29 @@ public partial class Curriculum : System.Web.UI.Page
                     ORDER BY c.SubjectId;
                 ";
 
-            e.DetailTableView.DataSource = connection.Query<ClassDto>(sql, new { subjectId = subjectId });
+                e.DetailTableView.DataSource = connection.Query<ClassDto>(sql, new { subjectId = subjectId });
+            }
+        }
+
+        if (e.DetailTableView.Name == "Students")
+        {
+            int classId = Convert.ToInt32(parentItem.GetDataKeyValue("ID"));
+            using (var connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            {
+                var sql = @"
+                    SELECT si.ID,
+                           si.FullName,
+                           si.DoB,
+                           si.CityLive,
+                           si.Status
+                    FROM StudentInClass sc
+                    INNER JOIN StudentInfo si ON sc.StudentId = si.ID
+                    WHERE sc.ClassId = @ClassId
+                    ORDER BY si.FullName;
+                ";
+
+                e.DetailTableView.DataSource = connection.Query<StudentInfo>(sql, new { ClassId = classId });
+            }
         }
     }
 }
