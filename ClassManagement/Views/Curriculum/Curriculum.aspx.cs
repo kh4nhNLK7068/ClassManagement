@@ -92,7 +92,7 @@ public partial class Curriculum : System.Web.UI.Page
         if (e.CommandName == "EditClass")
         {
             int classId = Convert.ToInt32((e.Item as GridDataItem).GetDataKeyValue("ID"));
-            Response.Redirect($"~/Views/Class/EditClass.aspx?id={classId}");
+            Response.Redirect($"~/Views/Curriculum/Modify/EditClass.aspx?id={classId}");
         }
 
         if (e.CommandName == "EditStudent")
@@ -109,7 +109,7 @@ public partial class Curriculum : System.Web.UI.Page
                 Response.Redirect("~/Views/Curriculum/Modify/CreateSubject.aspx");
                 break;
             case "Class":
-                Response.Redirect("~/Views/Class/CreateClass.aspx");
+                Response.Redirect("~/Views/Curriculum/Modify/CreateClass.aspx");
                 break;
             case "Student":
                 Response.Redirect("~/Views/Student/CreateStudent.aspx");

@@ -313,6 +313,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\ClassDto.cs" />
+    <Compile Include="Models\Dtos\SubjectOptionDto.cs" />
     <Compile Include="Models\Entities\Class.cs" />
     <Compile Include="Models\Entities\Role.cs" />
     <Compile Include="Models\Entities\RoleUser.cs" />
@@ -345,6 +346,13 @@
     <Compile Include="Views\Curriculum\Curriculum.aspx.designer.cs">
       <DependentUpon>Curriculum.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Curriculum\Modify\CreateClass.aspx.cs">
+      <DependentUpon>CreateClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Curriculum\Modify\CreateClass.aspx.designer.cs">
+      <DependentUpon>CreateClass.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Curriculum\Modify\CreateSubject.aspx.cs">
       <DependentUpon>CreateSubject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -372,6 +380,7 @@
     <Content Include="Views\Account\SignUpForm.aspx" />
     <Content Include="Views\Account\Styles.css" />
     <Content Include="Views\Curriculum\Curriculum.aspx" />
+    <Content Include="Views\Curriculum\Modify\CreateClass.aspx" />
     <Content Include="Views\Curriculum\Modify\CreateSubject.aspx" />
     <Content Include="Views\Dashboard\Dashboard.aspx" />
     <Content Include="Views\MyClass\MyClass.aspx" />
