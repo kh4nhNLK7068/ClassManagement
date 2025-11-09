@@ -67,6 +67,15 @@ public partial class CreateSubject
     protected global::Telerik.Web.UI.RadTextBox ddlType;
 
     /// <summary>
+    /// statusField control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusField;
+
+    /// <summary>
     /// switchStatus control.
     /// </summary>
     /// <remarks>

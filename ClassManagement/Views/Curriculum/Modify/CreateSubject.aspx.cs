@@ -18,8 +18,7 @@ public partial class CreateSubject : System.Web.UI.Page
                 LoadSubject();
             else
             {
-                switchStatus.Checked = true;
-                switchStatus.Enabled = false;
+                statusField.Visible = false;
             }    
         }
     }

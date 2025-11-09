@@ -15,39 +15,67 @@
             <asp:Literal ID="lblFormTitle" runat="server" /></h2>
         <br />
 
-        <div style="display: flex; flex-direction: column; gap: 12px; width: 350px;">
+        <div style="display: flex; flex-direction: column; gap: 14px; width: 420px; padding: 10px 0;">
 
-            <telerik:RadTextBox ID="txtName" runat="server" Label="Class Name:" Width="100%" />
+            <div style="display: flex;">
+                <asp:Label AssociatedControlID="txtName" runat="server" Text="Class Name:"
+                    Style="font-weight: 600; margin-bottom: 4px; padding-right: 16px; white-space: nowrap;" />
+                <telerik:RadTextBox ID="txtName" runat="server" Width="100%" Style="font-weight: 600;" />
+            </div>
 
-            <telerik:RadDropDownList ID="ddlType" runat="server" Width="100%" Label="Class Type:">
-                <Items>
-                    <telerik:DropDownListItem Text="Basic" Value="Basic" />
-                    <telerik:DropDownListItem Text="Advanced" Value="Advanced" />
-                </Items>
-            </telerik:RadDropDownList>
+            <div style="display: flex; flex-direction: column;">
+                <asp:Label AssociatedControlID="ddlType" runat="server" Text="Class Type:"
+                    Style="font-weight: 600; margin-bottom: 4px;" />
+                <telerik:RadDropDownList ID="ddlType" runat="server" Width="100%">
+                    <Items>
+                        <telerik:DropDownListItem Text="Basic" Value="Basic" />
+                        <telerik:DropDownListItem Text="Advanced" Value="Advanced" />
+                    </Items>
+                </telerik:RadDropDownList>
+            </div>
 
-            <telerik:RadDropDownList ID="ddlSubject" runat="server" Width="100%" Label="Subject:" />
+            <div style="display: flex; flex-direction: column;">
+                <asp:Label AssociatedControlID="ddlSubject" runat="server" Text="Subject:" Style="font-weight: 600; margin-bottom: 4px;" />
+                <telerik:RadDropDownList ID="ddlSubject" runat="server" Width="100%" Label="Subject:" />
+            </div>
 
-            <asp:CheckBoxList ID="chkSchedule" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" CssClass="schedule-list">
-                <asp:ListItem Text="2" Value="2" />
-                <asp:ListItem Text="3" Value="3" />
-                <asp:ListItem Text="4" Value="4" />
-                <asp:ListItem Text="5" Value="5" />
-                <asp:ListItem Text="6" Value="6" />
-                <asp:ListItem Text="7" Value="7" />
-                <asp:ListItem Text="CN" Value="CN" />
-            </asp:CheckBoxList>
+            <div style="display: flex; flex-direction: column;">
+                <asp:Label AssociatedControlID="autoSchedule" runat="server" Text="Schedule:" Style="font-weight: 600; margin-bottom: 4px;" />
+                <telerik:RadAutoCompleteBox ID="autoSchedule" runat="server" Width="100%" InputType="Token">
+                    <Entries>
+                        <telerik:AutoCompleteBoxEntry Text="2" Value="2" />
+                        <telerik:AutoCompleteBoxEntry Text="3" Value="3" />
+                        <telerik:AutoCompleteBoxEntry Text="4" Value="4" />
+                        <telerik:AutoCompleteBoxEntry Text="5" Value="5" />
+                        <telerik:AutoCompleteBoxEntry Text="6" Value="6" />
+                        <telerik:AutoCompleteBoxEntry Text="7" Value="7" />
+                        <telerik:AutoCompleteBoxEntry Text="CN" Value="CN" />
+                    </Entries>
+                </telerik:RadAutoCompleteBox>
+            </div>
 
-            <telerik:RadTimePicker ID="tpStart" runat="server" Label="Start Time:" />
-            <telerik:RadTimePicker ID="tpEnd" runat="server" Label="End Time:" />
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div style="flex: 1;">
+                    <asp:Label AssociatedControlID="tpStart" runat="server" Text="Start:" />
+                    <telerik:RadTimePicker ID="tpStart" runat="server" Label="Start Time:" Width="100%" />
+                </div>
+                <div style="flex: 1;">
+                    <asp:Label AssociatedControlID="tpEnd" runat="server" Text="End:" />
 
-            <telerik:RadDropDownList ID="ddlStatus" runat="server" Width="100%" Label="Satus:">
-                <Items>
-                    <telerik:DropDownListItem Text="In-process" Value="In-process" />
-                    <telerik:DropDownListItem Text="Finished" Value="Finished" />
-                    <telerik:DropDownListItem Text="Cancelled" Value="Cancelled" />
-                </Items>
-            </telerik:RadDropDownList>
+                    <telerik:RadTimePicker ID="tpEnd" runat="server" Label="End Time:" Width="100%" />
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <asp:Label AssociatedControlID="ddlStatus" runat="server" Text="Status:" Style="font-weight: 600; margin-bottom: 4px;" />
+                <telerik:RadDropDownList ID="ddlStatus" runat="server" Width="100%">
+                    <Items>
+                        <telerik:DropDownListItem Text="In-process" Value="In-process" />
+                        <telerik:DropDownListItem Text="Finished" Value="Finished" />
+                        <telerik:DropDownListItem Text="Cancelled" Value="Cancelled" />
+                    </Items>
+                </telerik:RadDropDownList>
+            </div>
 
             <div style="margin-top: 10px;">
                 <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" />

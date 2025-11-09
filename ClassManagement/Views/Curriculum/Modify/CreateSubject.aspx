@@ -11,7 +11,8 @@
     <telerik:RadAjaxPanel runat="server" ID="ajaxPanel" LoadingPanelID="LoadingPanel">
         <telerik:RadAjaxLoadingPanel ID="LoadingPanel" runat="server" />
 
-        <h2><asp:Literal ID="lblFormTitle" runat="server" /></h2>
+        <h2>
+            <asp:Literal ID="lblFormTitle" runat="server" /></h2>
         <br />
 
         <div style="display: flex; flex-direction: column; gap: 12px; width: 350px;">
@@ -24,7 +25,10 @@
             <telerik:RadTextBox ID="ddlType" runat="server" Label="Type:"
                 TextMode="MultiLine" Rows="2" Width="100%" />
 
-            <telerik:RadSwitch ID="switchStatus" runat="server" OnText="Active" OffText="Inactive" AutoPostBack="false" />
+            <div id="statusField" runat="server">
+                <asp:Label AssociatedControlID="switchStatus" runat="server" Text="Status:" Style="padding: 6px 10px 6px 0; font-family: Helvetica,Arial,sans-serif; color: #333;" />
+                <telerik:RadSwitch ID="switchStatus" runat="server" OnText="Active" OffText="Inactive" AutoPostBack="false" />
+            </div>
 
             <div style="margin-top: 10px;">
                 <telerik:RadButton ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Skin="Material" />

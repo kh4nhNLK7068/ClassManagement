@@ -67,13 +67,13 @@ public partial class CreateClass
     protected global::Telerik.Web.UI.RadDropDownList ddlSubject;
 
     /// <summary>
-    /// chkSchedule control.
+    /// autoSchedule control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.CheckBoxList chkSchedule;
+    protected global::Telerik.Web.UI.RadAutoCompleteBox autoSchedule;
 
     /// <summary>
     /// tpStart control.

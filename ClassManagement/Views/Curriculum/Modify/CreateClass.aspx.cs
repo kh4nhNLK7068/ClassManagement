@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.UI.WebControls;
 using ClassManagement.Models.Dtos;
 using Dapper;
+using Telerik.Web.UI;
 
 public partial class CreateClass : System.Web.UI.Page
 {
@@ -28,9 +30,9 @@ public partial class CreateClass : System.Web.UI.Page
             ddlSubject.DataSource = con.Query<SubjectOptionDto>(
                 "SELECT ID, Name FROM Subject WHERE Status = 1"
             ).ToList();
-                        ddlSubject.DataTextField = "Name";
-                        ddlSubject.DataValueField = "ID";
-                        ddlSubject.DataBind();
+            ddlSubject.DataTextField = "Name";
+            ddlSubject.DataValueField = "ID";
+            ddlSubject.DataBind();
         }
     }
 
@@ -46,11 +48,12 @@ public partial class CreateClass : System.Web.UI.Page
             ddlType.SelectedValue = cls.Type;
             ddlSubject.SelectedValue = cls.SubjectId.ToString();
 
+            autoSchedule.Entries.Clear();
             foreach (var day in cls.ScheduledClass.Split(','))
             {
-                var item = chkSchedule.Items.FindByValue(day);
-                if (item != null)
-                    item.Selected = true;
+                string d = day.Trim();
+                if (!string.IsNullOrWhiteSpace(d))
+                    autoSchedule.Entries.Add(new AutoCompleteBoxEntry(d, d));
             }
 
             tpStart.SelectedDate = DateTime.Today.Add(cls.TimeStart);
@@ -65,9 +68,12 @@ public partial class CreateClass : System.Web.UI.Page
     {
         using (var con = new SqlConnection(conn))
         {
-            string schedule = string.Join(",", chkSchedule.Items.Cast<ListItem>()
-                                                   .Where(i => i.Selected)
-                                                   .Select(i => i.Value));
+            var selectedDays = new List<string>();
+            foreach (AutoCompleteBoxEntry entry in autoSchedule.Entries)
+            {
+                selectedDays.Add(entry.Value);
+            }
+            var schedule = string.Join(",", selectedDays);
 
             if (Request.QueryString["id"] == null)
             {
