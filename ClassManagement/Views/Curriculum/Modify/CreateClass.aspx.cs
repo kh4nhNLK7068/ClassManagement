@@ -20,6 +20,10 @@ public partial class CreateClass : System.Web.UI.Page
 
             if (Request.QueryString["id"] != null)
                 LoadClass();
+            else
+            {
+                statusField.Visible = false;
+            }
         }
     }
 
@@ -62,7 +66,6 @@ public partial class CreateClass : System.Web.UI.Page
             ddlStatus.SelectedValue = cls.Status;
         }
     }
-
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -116,6 +119,5 @@ public partial class CreateClass : System.Web.UI.Page
 
         Response.Redirect("../Curriculum.aspx");
     }
-
 }
 

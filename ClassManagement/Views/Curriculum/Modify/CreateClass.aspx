@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column;">
+            <div id="statusField" runat="server" style="display: flex; flex-direction: column;">
                 <asp:Label AssociatedControlID="ddlStatus" runat="server" Text="Status:" Style="font-weight: 600; margin-bottom: 4px;" />
                 <telerik:RadDropDownList ID="ddlStatus" runat="server" Width="100%">
                     <Items>
@@ -78,7 +78,7 @@
             </div>
 
             <div style="margin-top: 10px;">
-                <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" />
+                <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" Style="background-color: #337ab7; color: white;"/>
                 <telerik:RadButton ID="btnCancel" runat="server" Text="CANCEL"
                     OnClientClicked="function(){ window.location='../Curriculum.aspx'; }"
                     Skin="Material" />

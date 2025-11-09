@@ -94,6 +94,15 @@ public partial class CreateClass
     protected global::Telerik.Web.UI.RadTimePicker tpEnd;
 
     /// <summary>
+    /// statusField control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusField;
+
+    /// <summary>
     /// ddlStatus control.
     /// </summary>
     /// <remarks>
