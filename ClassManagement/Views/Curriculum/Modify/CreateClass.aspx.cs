@@ -131,14 +131,14 @@ public partial class CreateClass : System.Web.UI.Page
 
     protected void RadGridStudent_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
     {
-        if (Request.QueryString["id"] == null)
+        try
         {
-            return;
-        }
-        int classId = Convert.ToInt32(Request.QueryString["id"]);
-        using (var connection = new SqlConnection(conn))
-        {
-            var sql = @"
+            if (Request.QueryString["id"] != null)
+            {
+                int classId = Convert.ToInt32(Request.QueryString["id"]);
+                using (var connection = new SqlConnection(conn))
+                {
+                    var sql = @"
                     SELECT si.ID,
                            si.FullName,
                            si.DoB,
@@ -149,9 +149,36 @@ public partial class CreateClass : System.Web.UI.Page
                     WHERE sc.ClassId = @ClassId
                     ORDER BY si.FullName;
                 ";
-            var data = connection.Query<StudentInfo>(sql, new { ClassId = classId });
-            RadGridStudent.DataSource = data;
+                    var data = connection.Query<StudentInfo>(sql, new { ClassId = classId });
+                    RadGridStudent.DataSource = data;
+                }
+            }
+            else
+            {
+                // Create mode - No data
+                RadGridStudent.DataSource = new List<StudentInfo>();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error to debug
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            RadGridStudent.DataSource = new List<StudentInfo>();
         }
     }
-}
 
+    protected void RadGridStudent_InsertCommand(object sender, GridCommandEventArgs e)
+    {
+        var item = (GridEditableItem)e.Item;
+
+        var fullName = (item["FullName"].Controls[0] as TextBox).Text;
+        var city = (item["CityLive"].Controls[0] as TextBox).Text;
+
+        using (var con = new SqlConnection(conn))
+        {
+            con.Execute("INSERT INTO StudentInfo (FullName, CityLive) VALUES (@n, @c)",
+                new { n = fullName, c = city });
+        }
+    }
+
+}

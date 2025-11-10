@@ -21,12 +21,14 @@
     </telerik:RadDropDownList>
 
     <telerik:RadGrid ID="RadGridSubject" runat="server" AllowPaging="true" AllowSorting="true"
-        PageSize="10" AutoGenerateColumns="False"
+        PageSize="10" PagerStyle-PageButtonCount="5" AutoGenerateColumns="False"
         OnNeedDataSource="RadGridSubject_NeedDataSource"
         OnDetailTableDataBind="RadGridClass_DetailTableDataBind"
         OnItemCommand="RadGridSubject_ItemCommand">
 
-        <MasterTableView DataKeyNames="ID">
+        <MasterTableView AllowFilteringByColumn="true"
+            TableLayout="Fixed"
+            DataKeyNames="ID">
             <Columns>
                 <telerik:GridTemplateColumn HeaderText="Subject Name">
                     <ItemTemplate>
@@ -69,6 +71,10 @@
                 </telerik:GridTableView>
             </DetailTables>
         </MasterTableView>
+        <ClientSettings AllowColumnsReorder="true" AllowColumnHide="true" AllowDragToGroup="true">
+            <Selecting AllowRowSelect="true" />
+            <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+        </ClientSettings>
     </telerik:RadGrid>
 </asp:Content>
 
