@@ -55,7 +55,7 @@ public partial class CreateSubject : System.Web.UI.Page
                         Name = txtName.Text,
                         Description = txtDescription.Text,
                         Type = ddlType.Text,
-                        Status = (bool)switchStatus.Checked ? 1 : 0
+                        Status = 1
                     });
             }
             else
