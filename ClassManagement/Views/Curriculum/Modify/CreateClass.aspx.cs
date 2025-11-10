@@ -25,7 +25,10 @@ public partial class CreateClass : System.Web.UI.Page
             {
                 LoadClass();
                 if (ddlStatus.SelectedValue == "Cancelled")
+                {
                     addStudentSection.Visible = false;
+                    subjectField.Visible = false;
+                }
             }
             else
             {
@@ -295,7 +298,7 @@ public partial class CreateClass : System.Web.UI.Page
                 int id = Convert.ToInt32(Request.QueryString["id"]);
                 con.Execute(@"
                 UPDATE Class SET
-                    Name=@Name, Type=@Type, SubjectId=@SubjectId,
+                    Name=@Name, Type=@Type,
                     TimeStart=@TimeStart, TimeEnd=@TimeEnd, 
                     ScheduledClass=@Schedule, Status=@Status
                 WHERE ID=@ID",
@@ -304,7 +307,6 @@ public partial class CreateClass : System.Web.UI.Page
                     ID = id,
                     Name = txtName.Text,
                     Type = ddlType.SelectedValue,
-                    SubjectId = ddlSubject.SelectedValue,
                     TimeStart = tpStart.SelectedDate.Value.TimeOfDay,
                     TimeEnd = tpEnd.SelectedDate.Value.TimeOfDay,
                     Schedule = string.Join(",", selectedValues),
@@ -319,20 +321,20 @@ public partial class CreateClass : System.Web.UI.Page
                     ",
                     new { ID = id });
                 }
-                //else
-                //{
-                //    con.Execute(@"
-                //    UPDATE s
-                //    SET Status=@Status
-                //    FROM Subject s
-                //    INNER JOIN Class c ON c.SubjectId = s.ID
-                //    WHERE c.ID=@ID",
-                //    new
-                //    {
-                //        ID = id,
-                //        Status = 1
-                //    });
-                //}
+                else
+                {
+                    con.Execute(@"
+                    UPDATE s
+                    SET Status=@Status
+                    FROM Subject s
+                    INNER JOIN Class c ON c.SubjectId = s.ID
+                    WHERE c.ID=@ID",
+                    new
+                    {
+                        ID = id,
+                        Status = 1
+                    });
+                }
             }
         }
 

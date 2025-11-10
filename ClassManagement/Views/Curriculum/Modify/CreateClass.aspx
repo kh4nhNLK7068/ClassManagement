@@ -47,7 +47,7 @@
                 </telerik:RadDropDownList>
             </div>
 
-            <div style="display: flex; flex-direction: column;">
+            <div id="subjectField" runat="server" style="display: flex; flex-direction: column;">
                 <asp:Label AssociatedControlID="ddlSubject" runat="server" Text="Subject:" Style="font-weight: 600; margin-bottom: 4px;" />
                 <telerik:RadDropDownList ID="ddlSubject" runat="server" Width="100%" Label="Subject:" />
             </div>
