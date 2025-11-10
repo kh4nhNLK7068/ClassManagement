@@ -24,7 +24,8 @@ public partial class CreateClass : System.Web.UI.Page
             if (Request.QueryString["id"] != null)
             {
                 LoadClass();
-                addStudentSection.Visible = true;
+                if (ddlStatus.SelectedValue == "Cancelled")
+                    addStudentSection.Visible = false;
             }
             else
             {
@@ -309,6 +310,29 @@ public partial class CreateClass : System.Web.UI.Page
                     Schedule = string.Join(",", selectedValues),
                     Status = ddlStatus.SelectedValue
                 });
+
+                if (ddlStatus.SelectedValue == "Cancelled")
+                {
+                    con.Execute(@"
+                        DELETE FROM StudentInClass
+                        WHERE ClassId = @ID
+                    ",
+                    new { ID = id });
+                }
+                //else
+                //{
+                //    con.Execute(@"
+                //    UPDATE s
+                //    SET Status=@Status
+                //    FROM Subject s
+                //    INNER JOIN Class c ON c.SubjectId = s.ID
+                //    WHERE c.ID=@ID",
+                //    new
+                //    {
+                //        ID = id,
+                //        Status = 1
+                //    });
+                //}
             }
         }
 

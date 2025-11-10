@@ -96,8 +96,8 @@
             </div>
 
             <div style="margin-top: 10px;">
-                <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" Style="background-color: #337ab7; color: white;" />
-                <telerik:RadButton ID="btnCancel" runat="server" Text="CANCEL"
+                <telerik:RadButton ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Skin="Material" Style="background-color: #337ab7; color: white;" />
+                <telerik:RadButton ID="btnCancel" runat="server" Text="Cancel"
                     OnClientClicked="function(){ window.location='../Curriculum.aspx'; }"
                     Skin="Material" />
             </div>

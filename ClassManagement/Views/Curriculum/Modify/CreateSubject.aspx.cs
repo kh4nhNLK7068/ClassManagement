@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 
-public partial class CreateSubject : System.Web.UI.Page 
+public partial class CreateSubject : System.Web.UI.Page
 {
     string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
@@ -19,7 +19,7 @@ public partial class CreateSubject : System.Web.UI.Page
             else
             {
                 statusField.Visible = false;
-            }    
+            }
         }
     }
 
@@ -74,6 +74,25 @@ public partial class CreateSubject : System.Web.UI.Page
                         Type = ddlType.Text,
                         Status = (bool)switchStatus.Checked ? 1 : 0
                     });
+
+                //Change class status and then remove all students in the each class
+                if ((bool)switchStatus.Checked == false)
+                {
+                    con.Execute(@"
+                        BEGIN TRAN;
+
+                        UPDATE Class
+                        SET Status = 'Cancelled'
+                        WHERE SubjectId = @SubjectId;
+
+                        DELETE sic
+                        FROM StudentInClass sic
+                        INNER JOIN Class c ON c.ID = sic.ClassId
+                        WHERE c.SubjectId = @SubjectId;
+
+                        COMMIT;
+                    ", new { SubjectId = id });
+                }
             }
         }
 
