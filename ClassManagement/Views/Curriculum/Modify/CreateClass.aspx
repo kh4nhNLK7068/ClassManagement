@@ -40,18 +40,24 @@
             </div>
 
             <div style="display: flex; flex-direction: column;">
-                <asp:Label AssociatedControlID="autoSchedule" runat="server" Text="Schedule:" Style="font-weight: 600; margin-bottom: 4px;" />
-                <telerik:RadAutoCompleteBox ID="autoSchedule" runat="server" Width="100%" InputType="Token">
-                    <Entries>
-                        <telerik:AutoCompleteBoxEntry Text="2" Value="2" />
-                        <telerik:AutoCompleteBoxEntry Text="3" Value="3" />
-                        <telerik:AutoCompleteBoxEntry Text="4" Value="4" />
-                        <telerik:AutoCompleteBoxEntry Text="5" Value="5" />
-                        <telerik:AutoCompleteBoxEntry Text="6" Value="6" />
-                        <telerik:AutoCompleteBoxEntry Text="7" Value="7" />
-                        <telerik:AutoCompleteBoxEntry Text="CN" Value="CN" />
-                    </Entries>
-                </telerik:RadAutoCompleteBox>
+                <asp:Label AssociatedControlID="cboSchedule" runat="server" Text="Schedule:" Style="font-weight: 600; margin-bottom: 4px;" />
+                <telerik:RadComboBox
+                    ID="cboSchedule"
+                    runat="server"
+                    Width="100%"
+                    CheckBoxes="true"
+                    EnableCheckAllItemsCheckBox="false"
+                    EmptyMessage="Select schedule...">
+                    <Items>
+                        <telerik:RadComboBoxItem Text="Mon" Value="2" />
+                        <telerik:RadComboBoxItem Text="Tue" Value="3" />
+                        <telerik:RadComboBoxItem Text="Wed" Value="4" />
+                        <telerik:RadComboBoxItem Text="Thu" Value="5" />
+                        <telerik:RadComboBoxItem Text="Fri" Value="6" />
+                        <telerik:RadComboBoxItem Text="Sat" Value="7" />
+                        <telerik:RadComboBoxItem Text="Sun" Value="CN" />
+                    </Items>
+                </telerik:RadComboBox>
             </div>
 
             <div style="display: flex; gap: 12px; align-items: center;">
@@ -78,7 +84,7 @@
             </div>
 
             <div style="margin-top: 10px;">
-                <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" Style="background-color: #337ab7; color: white;"/>
+                <telerik:RadButton ID="btnSave" runat="server" Text="SAVE" OnClick="btnSave_Click" Skin="Material" Style="background-color: #337ab7; color: white;" />
                 <telerik:RadButton ID="btnCancel" runat="server" Text="CANCEL"
                     OnClientClicked="function(){ window.location='../Curriculum.aspx'; }"
                     Skin="Material" />

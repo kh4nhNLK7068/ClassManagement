@@ -52,12 +52,16 @@ public partial class CreateClass : System.Web.UI.Page
             ddlType.SelectedValue = cls.Type;
             ddlSubject.SelectedValue = cls.SubjectId.ToString();
 
-            autoSchedule.Entries.Clear();
-            foreach (var day in cls.ScheduledClass.Split(','))
+            if (!string.IsNullOrEmpty(cls.ScheduledClass))
             {
-                string d = day.Trim();
-                if (!string.IsNullOrWhiteSpace(d))
-                    autoSchedule.Entries.Add(new AutoCompleteBoxEntry(d, d));
+                var schedules = cls.ScheduledClass.Split(',');
+                foreach (RadComboBoxItem item in cboSchedule.Items)
+                {
+                    if (Array.IndexOf(schedules, item.Value) >= 0)
+                    {
+                        item.Checked = true;
+                    }
+                }
             }
 
             tpStart.SelectedDate = DateTime.Today.Add(cls.TimeStart);
@@ -71,12 +75,15 @@ public partial class CreateClass : System.Web.UI.Page
     {
         using (var con = new SqlConnection(conn))
         {
-            var selectedDays = new List<string>();
-            foreach (AutoCompleteBoxEntry entry in autoSchedule.Entries)
+            var selectedValues = new List<string>();
+            foreach (RadComboBoxItem item in cboSchedule.Items)
             {
-                selectedDays.Add(entry.Value);
+                if (item.Checked)
+                {
+                    selectedValues.Add(item.Value);
+                }
             }
-            var schedule = string.Join(",", selectedDays);
+            selectedValues.Sort();
 
             if (Request.QueryString["id"] == null)
             {
@@ -90,7 +97,7 @@ public partial class CreateClass : System.Web.UI.Page
                     SubjectId = ddlSubject.SelectedValue,
                     TimeStart = tpStart.SelectedDate.Value.TimeOfDay,
                     TimeEnd = tpEnd.SelectedDate.Value.TimeOfDay,
-                    Schedule = schedule,
+                    Schedule = string.Join(",", selectedValues),
                     Status = ddlStatus.SelectedValue
                 });
             }
@@ -111,7 +118,7 @@ public partial class CreateClass : System.Web.UI.Page
                     SubjectId = ddlSubject.SelectedValue,
                     TimeStart = tpStart.SelectedDate.Value.TimeOfDay,
                     TimeEnd = tpEnd.SelectedDate.Value.TimeOfDay,
-                    Schedule = schedule,
+                    Schedule = string.Join(",", selectedValues),
                     Status = ddlStatus.SelectedValue
                 });
             }
