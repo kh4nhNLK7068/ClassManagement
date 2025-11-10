@@ -94,12 +94,6 @@ public partial class Curriculum : System.Web.UI.Page
             int classId = Convert.ToInt32((e.Item as GridDataItem).GetDataKeyValue("ID"));
             Response.Redirect($"~/Views/Curriculum/Modify/CreateClass.aspx?id={classId}");
         }
-
-        if (e.CommandName == "EditStudent")
-        {
-            int studentId = Convert.ToInt32((e.Item as GridDataItem).GetDataKeyValue("ID"));
-            Response.Redirect($"~/Views/Curriculum/Modify/CreateStudent.aspx?id={studentId}");
-        }
     }
     protected void ddlCreateNew_SelectedIndexChanged(object sender, Telerik.Web.UI.DropDownListEventArgs e)
     {
@@ -110,9 +104,6 @@ public partial class Curriculum : System.Web.UI.Page
                 break;
             case "Class":
                 Response.Redirect("~/Views/Curriculum/Modify/CreateClass.aspx");
-                break;
-            case "Student":
-                Response.Redirect("~/Views/Curriculum/Modify/CreateStudent.aspx");
                 break;
         }
     }

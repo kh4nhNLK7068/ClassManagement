@@ -128,4 +128,13 @@ public partial class CreateClass
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::Telerik.Web.UI.RadButton btnCancel;
+
+    /// <summary>
+    /// RadGridStudent control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadGrid RadGridStudent;
 }

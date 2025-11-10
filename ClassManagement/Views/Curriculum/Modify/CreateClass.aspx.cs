@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.UI.WebControls;
 using ClassManagement.Models.Dtos;
+using ClassManagement.Models.Entities;
 using Dapper;
 using Telerik.Web.UI;
 
@@ -23,6 +24,7 @@ public partial class CreateClass : System.Web.UI.Page
             else
             {
                 statusField.Visible = false;
+                RadGridStudent.Visible = false;
             }
         }
     }
@@ -125,6 +127,31 @@ public partial class CreateClass : System.Web.UI.Page
         }
 
         Response.Redirect("../Curriculum.aspx");
+    }
+
+    protected void RadGridStudent_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+    {
+        if (Request.QueryString["id"] == null)
+        {
+            return;
+        }
+        int classId = Convert.ToInt32(Request.QueryString["id"]);
+        using (var connection = new SqlConnection(conn))
+        {
+            var sql = @"
+                    SELECT si.ID,
+                           si.FullName,
+                           si.DoB,
+                           si.CityLive,
+                           si.Status
+                    FROM StudentInClass sc
+                    INNER JOIN StudentInfo si ON sc.StudentId = si.ID
+                    WHERE sc.ClassId = @ClassId
+                    ORDER BY si.FullName;
+                ";
+            var data = connection.Query<StudentInfo>(sql, new { ClassId = classId });
+            RadGridStudent.DataSource = data;
+        }
     }
 }
 

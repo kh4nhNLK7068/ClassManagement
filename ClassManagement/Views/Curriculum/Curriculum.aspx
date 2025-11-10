@@ -17,7 +17,6 @@
         <Items>
             <telerik:DropDownListItem Text="Subject" Value="Subject" />
             <telerik:DropDownListItem Text="Class" Value="Class" />
-            <telerik:DropDownListItem Text="Student" Value="Student" />
         </Items>
     </telerik:RadDropDownList>
 
@@ -67,31 +66,8 @@
                         <telerik:GridBoundColumn DataField="TotalStudent" HeaderText="Total Student" />
                         <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
                     </Columns>
-
-                    <DetailTables>
-                        <telerik:GridTableView Name="Students" DataKeyNames="ID" Width="100%">
-                            <Columns>
-                                <telerik:GridTemplateColumn HeaderText="Student Name">
-                                    <ItemTemplate>
-                                        <asp:LinkButton
-                                            ID="lnkStudent"
-                                            runat="server"
-                                            Text='<%# Eval("FullName") %>'
-                                            CommandName="EditStudent"
-                                            CommandArgument='<%# Eval("ID") %>'
-                                            Style="text-decoration: none;" />
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
-
-                                <telerik:GridBoundColumn DataField="DoB" HeaderText="Birthday" DataFormatString="{0:dd-MM-yyyy}" />
-                                <telerik:GridBoundColumn DataField="CityLive" HeaderText="City" />
-                                <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
-                            </Columns>
-                        </telerik:GridTableView>
-                    </DetailTables>
                 </telerik:GridTableView>
             </DetailTables>
-
         </MasterTableView>
     </telerik:RadGrid>
 </asp:Content>
