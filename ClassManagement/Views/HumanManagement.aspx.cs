@@ -11,7 +11,7 @@ using System.Linq;
 using ClassManagement.Models.Dtos;
 using ClassManagement.Models.Entities;
 
-public partial class HumanManagement : System.Web.UI.Page 
+public partial class HumanManagement : System.Web.UI.Page
 {
     string conn = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
@@ -39,7 +39,7 @@ public partial class HumanManagement : System.Web.UI.Page
                                 t.FullName, 
                                 t.DoB AS DateOfBirth, 
                                 t.CityLive, 
-                                t.[Status] AS Active, 
+                                CAST(t.[Status] AS bit) AS Active, 
                                 u.[Username], 
                                 u.[Password]
                             FROM StudentInfo t 
@@ -78,18 +78,94 @@ public partial class HumanManagement : System.Web.UI.Page
         }
     }
 
-    protected void RadGrid1_ItemInserted(object source, GridInsertedEventArgs e)
+    /*protected void RadGrid1_ItemInserted(object source, GridInsertedEventArgs e)
     {
-        if (e.Exception != null)
+        try
+        {
+            var item = (GridEditableItem)e.Item;
+            var fullName = (item.FindControl("FullName") as TextBox) != null
+                            ? (item.FindControl("FullName") as TextBox).Text
+                            : item["FullName"].Text;
+            RadDatePicker dp = item.FindControl("dpDateOfBirth") as RadDatePicker;
+            DateTime? dob = dp.SelectedDate;
+            var city = (item["CityLive"].Controls[0] as TextBox).Text;
+
+            if (IsUserExists(fullName, city, "Teacher"))
+            {
+                e.ExceptionHandled = true;
+                SetMessage("User's information already exists! Please choose another.");
+                //e.Canceled = true; // cancel insert
+                return;
+            }
+
+            int infoId;
+            using (var connection = new SqlConnection(conn))
+            {
+                string sql = @"INSERT INTO TeacherInfo (FullName, DoB, CityLive, Status)
+                                   VALUES (@FullName, @DoB, @CityLive, 1);
+                                   SELECT CAST(SCOPE_IDENTITY() as int)";
+                infoId = connection.ExecuteScalar<int>(sql, new { FullName = fullName, DoB = dob, CityLive = city });
+
+                // Generate default username + password
+                string username = GenerateUsername(fullName);
+                string password = "*123456#";
+                string insertUser = @"INSERT INTO [User] (Username, Password, Status, TeacherInfoId)
+                        VALUES (@Username, @Password, 1, @InfoId)";
+                connection.Execute(insertUser, new { Username = username, Password = password, InfoId = infoId });
+            }
+
+            SetMessage("New student is inserted!");
+        }
+        catch (Exception ex)
         {
             e.ExceptionHandled = true;
             SetMessage("Insert failed! Reason: " + e.Exception.Message);
         }
-        else
+    }*/
+    protected void RadGrid1_ItemInserted(object source, GridInsertedEventArgs e)
+    {
+        try
         {
-            SetMessage("New student is inserted!");
+            var item = (GridEditableItem)e.Item;
+
+            string fullName = (item.FindControl("txtFullName") as TextBox).Text;
+            RadDatePicker dp = item.FindControl("dpDateOfBirth") as RadDatePicker;
+            DateTime? dob = dp.SelectedDate;
+            string city = (item.FindControl("txtCity") as TextBox).Text;
+
+            if (IsUserExists(fullName, city, "Teacher"))
+            {
+                e.ExceptionHandled = true;
+                SetMessage("User's information already exists! Please choose another.");
+                return;
+            }
+
+            using (var connection = new SqlConnection(conn))
+            {
+                int infoId = connection.ExecuteScalar<int>(@"
+                INSERT INTO TeacherInfo (FullName, DoB, CityLive, Status)
+                VALUES (@FullName, @DoB, @CityLive, 1);
+                SELECT CAST(SCOPE_IDENTITY() as int)",
+                    new { FullName = fullName, DoB = dob, CityLive = city });
+
+                string username = GenerateUsername(fullName);
+                string password = "*123456#";
+
+                connection.Execute(@"
+                INSERT INTO [User] (Username, Password, Status, TeacherInfoId)
+                VALUES (@Username, @Password, 1, @InfoId)",
+                    new { Username = username, Password = password, InfoId = infoId });
+            }
+
+            SetMessage("New teacher inserted!");
+        }
+        catch (Exception ex)
+        {
+            e.ExceptionHandled = true;
+            SetMessage("Insert failed: " + ex.Message);
         }
     }
+
 
     protected void RadGrid1_ItemDeleted(object source, GridDeletedEventArgs e)
     {
@@ -123,7 +199,7 @@ public partial class HumanManagement : System.Web.UI.Page
                                 t.FullName, 
                                 t.DoB AS DateOfBirth, 
                                 t.CityLive, 
-                                t.Status AS Active, 
+                                CAST(t.[Status] AS bit) AS Active, 
                                 u.[Username], 
                                 u.[Password]
                             FROM TeacherInfo t 
@@ -202,5 +278,34 @@ public partial class HumanManagement : System.Web.UI.Page
     private void SetMessage(string message)
     {
         gridMessage = message;
+    }
+
+    //Helpers
+    private bool IsUserExists(string fullName, string cityLive, string role)
+    {
+        using (var connection = new SqlConnection(conn))
+        {
+            var sql = "";
+            if(role == "Student")
+                sql = "SELECT COUNT(*) FROM StudentInfo WHERE FullName = @FullName AND CityLive = @CityLive";
+            else
+                sql = "SELECT COUNT(*) FROM TeacherInfo WHERE FullName = @FullName AND CityLive = @CityLive";
+            var count = connection.ExecuteScalar<int>(sql, new { FullName = fullName, CityLive = cityLive });
+            return count > 0;
+        }
+    }
+
+    private string GenerateUsername(string fullName)
+    {
+        // Ex: "Nguyen Le Khanh" => "khanhnl"
+        var parts = fullName.Trim().Split(' ', (char)StringSplitOptions.RemoveEmptyEntries);
+        string lastName = parts[parts.Length - 1].ToLower();
+        string initials = "";
+        for (int i = 0; i < parts.Length - 1; i++)
+        {
+            initials += parts[i][0];
+        }
+
+        return $"{lastName}{initials.ToLower()}";
     }
 }
