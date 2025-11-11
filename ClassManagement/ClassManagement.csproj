@@ -313,6 +313,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\ClassDto.cs" />
+    <Compile Include="Models\Dtos\UserInfoDto.cs" />
     <Compile Include="Models\Dtos\SubjectOptionDto.cs" />
     <Compile Include="Models\Entities\Class.cs" />
     <Compile Include="Models\Entities\Role.cs" />
@@ -367,6 +368,13 @@
     <Compile Include="Views\Dashboard\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanManagement.aspx.cs">
+      <DependentUpon>HumanManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HumanManagement.aspx.designer.cs">
+      <DependentUpon>HumanManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\MyClass\MyClass.aspx.cs">
       <DependentUpon>MyClass.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -383,6 +391,7 @@
     <Content Include="Views\Curriculum\Modify\CreateClass.aspx" />
     <Content Include="Views\Curriculum\Modify\CreateSubject.aspx" />
     <Content Include="Views\Dashboard\Dashboard.aspx" />
+    <Content Include="Views\HumanManagement.aspx" />
     <Content Include="Views\MyClass\MyClass.aspx" />
     <Content Include="web.config" />
     <Content Include="Data\ClassManagementDb.xsc">
@@ -432,7 +441,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
