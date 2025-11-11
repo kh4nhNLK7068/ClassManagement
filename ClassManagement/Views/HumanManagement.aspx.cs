@@ -35,7 +35,8 @@ public partial class HumanManagement : System.Web.UI.Page
             System.Diagnostics.Debug.WriteLine("Loading RadGrid1 - Students");
             using (var connection = new SqlConnection(conn))
             {
-                var sql = @"SELECT t.FullName, 
+                var sql = @"SELECT t.ID, 
+                                t.FullName, 
                                 t.DoB AS DateOfBirth, 
                                 t.CityLive, 
                                 t.[Status] AS Active, 
@@ -118,7 +119,8 @@ public partial class HumanManagement : System.Web.UI.Page
 
             using (var connection = new SqlConnection(conn))
             {
-                var sql = @"SELECT t.FullName, 
+                var sql = @"SELECT t.ID,
+                                t.FullName, 
                                 t.DoB AS DateOfBirth, 
                                 t.CityLive, 
                                 t.Status AS Active, 

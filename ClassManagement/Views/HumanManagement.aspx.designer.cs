@@ -13,33 +13,6 @@ public partial class HumanManagement
 {
 
     /// <summary>
-    /// RadStyleSheetManager1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
-
-    /// <summary>
-    /// form1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
-    /// <summary>
-    /// RadScriptManager1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
-
-    /// <summary>
     /// RadTabStrip1 control.
     /// </summary>
     /// <remarks>
@@ -67,24 +40,6 @@ public partial class HumanManagement
     protected global::Telerik.Web.UI.RadPageView RadPageView1;
 
     /// <summary>
-    /// RadAjaxPanel1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
-
-    /// <summary>
-    /// RadAjaxLoadingPanel1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
-
-    /// <summary>
     /// RadGrid1 control.
     /// </summary>
     /// <remarks>
@@ -110,24 +65,6 @@ public partial class HumanManagement
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::Telerik.Web.UI.RadPageView RadPageView2;
-
-    /// <summary>
-    /// RadAjaxPanel2 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel2;
-
-    /// <summary>
-    /// RadAjaxLoadingPanel2 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel2;
 
     /// <summary>
     /// RadGrid2 control.
