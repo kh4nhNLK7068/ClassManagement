@@ -8,7 +8,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <h2 style="margin-bottom: 20px; color: #333; position: relative;">Subject List</h2>
+    <h2 style="margin-bottom: 20px; color: #333; position: relative;">Curriculum Management</h2>
 
     <telerik:RadDropDownList ID="ddlCreateNew" runat="server" Width="150px" Style="position: absolute; padding-right: 20px; right: 0; top: 0;"
         DefaultMessage="Create new"

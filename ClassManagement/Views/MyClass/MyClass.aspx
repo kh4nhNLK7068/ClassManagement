@@ -8,7 +8,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <h2 style="margin-bottom: 20px; color: #333;">My Classes</h2>
+    <h2 style="margin-bottom: 20px; color: #333;">My Class</h2>
 
     <telerik:RadGrid ID="RadGridMyClass" runat="server" AllowPaging="true" AllowSorting="true"
         PageSize="10" AutoGenerateColumns="False"

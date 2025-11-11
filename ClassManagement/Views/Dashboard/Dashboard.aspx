@@ -7,6 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <h2 style="margin-bottom: 20px; color: #333;">Dashboard</h2>
     <telerik:RadHtmlChart runat="server" ID="RadHtmlChart1" Width="700px" Height="450px" Style="display: inline-block; vertical-align: top;">
         <ChartTitle Text="Active status of student" />
         <PlotArea>
