@@ -80,10 +80,10 @@
     <!-- MultiPage Content -->
     <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0" CssClass="tab-content">
 
-        <!-- Tab 1: Teachers -->
+        <!-- Tab 1: Students -->
         <telerik:RadPageView ID="RadPageView1" runat="server">
             <div class="grid-container">
-                <h3>Teachers Management</h3>
+                <h3>Students Management</h3>
 
                 <telerik:RadGrid ID="RadGrid1" GridLines="None" runat="server"
                     AllowAutomaticDeletes="True"
@@ -121,6 +121,7 @@
                                     <asp:TextBox ID="txtFullName" runat="server" Text='<%# Bind("FullName") %>' Width="100%" />
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
                                 <ItemTemplate>
@@ -143,9 +144,23 @@
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
 
-                            <telerik:GridCheckBoxColumn DataField="Active" HeaderText="Active" UniqueName="Active" />
-                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
-                            <telerik:GridBoundColumn DataField="Password" HeaderText="Password" UniqueName="Password" />
+                            <%--<telerik:GridBoundColumn DataField="Active" HeaderText="Active" />--%>
+                            <telerik:GridTemplateColumn HeaderText="Active" UniqueName="Active">
+                                <ItemTemplate>
+                                    <telerik:RadSwitch ID="switchStatus" runat="server"
+                                        OnText="Active" OffText="Inactive"
+                                        AutoPostBack="false"
+                                        Checked='<%# Convert.ToBoolean(Eval("Active")) %>' />
+                                </ItemTemplate>
+
+                                <EditItemTemplate>
+                                    <telerik:RadSwitch ID="switchStatusEdit" runat="server"
+                                        OnText="Active" OffText="Inactive"
+                                        AutoPostBack="false"
+                                        Checked='<%# Bind("Active") %>' />
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%--<telerik:GridCheckBoxColumn DataField="Active" HeaderText="Active" UniqueName="Active" />--%>
 
                             <telerik:GridEditCommandColumn ButtonType="ImageButton" UniqueName="EditCommandColumn">
                                 <ItemStyle Width="50px" CssClass="MyImageButton" HorizontalAlign="Center" />
@@ -188,10 +203,10 @@
             </div>
         </telerik:RadPageView>
 
-        <!-- Tab 2: Students -->
+        <!-- Tab 2: Teachers -->
         <telerik:RadPageView ID="RadPageView2" runat="server">
             <div class="grid-container">
-                <h3>Students Management</h3>
+                <h3>Teachers Management</h3>
 
                 <telerik:RadGrid ID="RadGrid2" GridLines="None" runat="server"
                     AllowAutomaticDeletes="True"
@@ -229,6 +244,7 @@
                                     <asp:TextBox ID="txtFullName" runat="server" Text='<%# Bind("FullName") %>' Width="100%" />
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
                                 <ItemTemplate>
@@ -251,8 +267,6 @@
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridCheckBoxColumn DataField="Active" HeaderText="Active" UniqueName="Active" />
-                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
-                            <telerik:GridBoundColumn DataField="Password" HeaderText="Password" UniqueName="Password" />
 
                             <telerik:GridEditCommandColumn ButtonType="ImageButton" UniqueName="EditCommandColumn">
                                 <ItemStyle CssClass="MyImageButton" Width="50px" HorizontalAlign="Center" />

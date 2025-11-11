@@ -13,6 +13,5 @@ namespace ClassManagement.Models.Dtos
         public string CityLive { get; set; }
         public bool Active { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
     }
 }
