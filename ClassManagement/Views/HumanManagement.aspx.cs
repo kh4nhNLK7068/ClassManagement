@@ -270,17 +270,65 @@ public partial class HumanManagement : System.Web.UI.Page
     }
     #endregion
 
-    private void DisplayMessage(string text)
-    {
-        RadGrid1.Controls.Add(new LiteralControl(string.Format("<span style='color:red'>{0}</span>", text)));
-    }
+    
 
-    private void SetMessage(string message)
+    #region Switch Status Handler
+    protected void switchStatus_CheckedChanged(object sender, EventArgs e)
     {
-        gridMessage = message;
-    }
+        var switchControl = (RadSwitch)sender;
+        var item = (GridDataItem)switchControl.NamingContainer;
+        var userInfoId = Convert.ToInt32(item.GetDataKeyValue("ID"));
+        var newStatus = (bool)switchControl.Checked? 1 : 0;
 
-    //Helpers
+        try
+        {
+            using (var connection = new SqlConnection(conn))
+            {
+                if (userInfoId > -1)
+                {
+                    string updateSql;
+                    // Index teacher page - 1 and student page - 0
+                    if (RadTabStrip1.SelectedIndex == 1)
+                    {
+                        //TeacherInfo table
+                        updateSql = "UPDATE TeacherInfo SET [Status] = @Status WHERE ID = @Id;";
+                        connection.Execute(updateSql, new { Status = newStatus, Id = userInfoId });
+                        //User table
+                        updateSql = "UPDATE [User] SET [Status] = @Status WHERE TeacherInfoId = @TeacherInfoId;";
+                        connection.Execute(updateSql, new { Status = newStatus, TeacherInfoId = userInfoId });
+                    }
+                    else
+                    {
+                        updateSql = "UPDATE StudentInfo SET [Status] = @Status WHERE ID = @Id;";
+                        connection.Execute(updateSql, new { Status = newStatus, Id = userInfoId });
+
+                        updateSql = "UPDATE [User] SET [Status] = @Status WHERE StudentInfoId = @StudentInfoId;";
+                        connection.Execute(updateSql, new { Status = newStatus, StudentInfoId = userInfoId });
+                    }
+
+                    // Refresh grid
+                    if (item.OwnerTableView.ParentItem == null) // Grid1 - Teachers
+                    {
+                        RadGrid1.Rebind();
+                    }
+                    else // Grid2 - Students
+                    {
+                        RadGrid2.Rebind();
+                    }
+
+                    SetMessage($"Status updated to {(newStatus == 1 ? "Active" : "Inactive")} successfully!");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error updating status: {ex.Message}");
+            SetMessage("Error updating status: " + ex.Message);
+        }
+    }
+    #endregion
+
+    #region Helpers
     private bool IsUserExists(string fullName, string cityLive, string role)
     {
         using (var connection = new SqlConnection(conn))
@@ -308,4 +356,15 @@ public partial class HumanManagement : System.Web.UI.Page
 
         return $"{lastName}{initials.ToLower()}";
     }
+
+    private void DisplayMessage(string text)
+    {
+        RadGrid1.Controls.Add(new LiteralControl(string.Format("<span style='color:red'>{0}</span>", text)));
+    }
+
+    private void SetMessage(string message)
+    {
+        gridMessage = message;
+    }
+    #endregion
 }

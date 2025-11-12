@@ -60,6 +60,19 @@
                 color: #333;
             }
     </style>
+
+    <script type="text/javascript">
+        // Val - 1 way (read only) || Bind - 2 ways (read and write)
+        function confirmStatusChange(sender, args) {
+            var newStatus = !sender.get_checked(); // Get new status (AFTER click)
+            var statusText = newStatus ? "Active" : "Inactive";
+            var message = "Are you sure you want to change status to " + statusText + "?";
+
+            if (!confirm(message)) {
+                args.set_cancel(true); // Cancel changes if user clicks Cancel
+            }
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -72,8 +85,8 @@
         SelectedIndex="0"
         Skin="Default">
         <Tabs>
-            <telerik:RadTab Text="Teachers" Selected="true" />
-            <telerik:RadTab Text="Students" />
+            <telerik:RadTab Text="Students" Selected="true" />
+            <telerik:RadTab Text="Teachers" />
         </Tabs>
     </telerik:RadTabStrip>
 
@@ -121,7 +134,15 @@
                                     <asp:TextBox ID="txtFullName" runat="server" Text='<%# Bind("FullName") %>' Width="100%" />
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
+
+                            <telerik:GridTemplateColumn HeaderText="Username" UniqueName="Username">
+                                <ItemTemplate>
+                                    <%# Eval("Username") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>' Width="100%" />
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
                                 <ItemTemplate>
@@ -135,6 +156,7 @@
                                     </telerik:RadDatePicker>
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
+
                             <telerik:GridTemplateColumn HeaderText="City" UniqueName="CityLive">
                                 <ItemTemplate>
                                     <%# Eval("CityLive") %>
@@ -144,40 +166,21 @@
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
 
-                            <%--<telerik:GridBoundColumn DataField="Active" HeaderText="Active" />--%>
                             <telerik:GridTemplateColumn HeaderText="Active" UniqueName="Active">
                                 <ItemTemplate>
                                     <telerik:RadSwitch ID="switchStatus" runat="server"
                                         OnText="Active" OffText="Inactive"
-                                        AutoPostBack="false"
+                                        AutoPostBack="true"
+                                        OnCheckedChanged="switchStatus_CheckedChanged"
+                                        OnClientClicking="confirmStatusChange"
                                         Checked='<%# Convert.ToBoolean(Eval("Active")) %>' />
                                 </ItemTemplate>
-
-                                <EditItemTemplate>
-                                    <telerik:RadSwitch ID="switchStatusEdit" runat="server"
-                                        OnText="Active" OffText="Inactive"
-                                        AutoPostBack="false"
-                                        Checked='<%# Bind("Active") %>' />
-                                </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%--<telerik:GridCheckBoxColumn DataField="Active" HeaderText="Active" UniqueName="Active" />--%>
 
                             <telerik:GridEditCommandColumn ButtonType="ImageButton" UniqueName="EditCommandColumn">
                                 <ItemStyle Width="50px" CssClass="MyImageButton" HorizontalAlign="Center" />
                                 <HeaderStyle Width="50px" HorizontalAlign="Center" />
                             </telerik:GridEditCommandColumn>
-
-                            <telerik:GridButtonColumn
-                                ConfirmText="Delete this teacher?"
-                                ConfirmDialogType="RadWindow"
-                                ConfirmTitle="Delete"
-                                ButtonType="ImageButton"
-                                CommandName="Delete"
-                                Text="Delete"
-                                UniqueName="DeleteColumn">
-                                <ItemStyle Width="60px" HorizontalAlign="Center" CssClass="MyImageButton" />
-                                <HeaderStyle Width="60px" />
-                            </telerik:GridButtonColumn>
                         </Columns>
 
                         <EditFormSettings>
@@ -244,7 +247,15 @@
                                     <asp:TextBox ID="txtFullName" runat="server" Text='<%# Bind("FullName") %>' Width="100%" />
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="Username" HeaderText="Username" UniqueName="Username" />
+
+                            <telerik:GridTemplateColumn HeaderText="Username" UniqueName="Username">
+                                <ItemTemplate>
+                                    <%# Eval("Username") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>' Width="100%" />
+                                </EditItemTemplate>
+                            </telerik:GridTemplateColumn>
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
                                 <ItemTemplate>
@@ -266,24 +277,22 @@
                                     <asp:TextBox ID="txtCity" runat="server" Text='<%# Bind("CityLive") %>' Width="100%" />
                                 </EditItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridCheckBoxColumn DataField="Active" HeaderText="Active" UniqueName="Active" />
+
+                            <telerik:GridTemplateColumn HeaderText="Active" UniqueName="Active">
+                                <ItemTemplate>
+                                    <telerik:RadSwitch ID="switchStatus" runat="server"
+                                        OnText="Active" OffText="Inactive"
+                                        AutoPostBack="true"
+                                        OnCheckedChanged="switchStatus_CheckedChanged"
+                                        OnClientClicking="confirmStatusChange"
+                                        Checked='<%# Convert.ToBoolean(Eval("Active")) %>' />
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
 
                             <telerik:GridEditCommandColumn ButtonType="ImageButton" UniqueName="EditCommandColumn">
                                 <ItemStyle CssClass="MyImageButton" Width="50px" HorizontalAlign="Center" />
                                 <HeaderStyle Width="50px" HorizontalAlign="Center" />
                             </telerik:GridEditCommandColumn>
-
-                            <telerik:GridButtonColumn
-                                ConfirmText="Delete this student?"
-                                ConfirmDialogType="RadWindow"
-                                ConfirmTitle="Delete"
-                                ButtonType="ImageButton"
-                                CommandName="Delete"
-                                Text="Delete"
-                                UniqueName="DeleteColumn">
-                                <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" Width="60px" />
-                                <HeaderStyle Width="60px" HorizontalAlign="Center" />
-                            </telerik:GridButtonColumn>
                         </Columns>
 
                         <EditFormSettings>
