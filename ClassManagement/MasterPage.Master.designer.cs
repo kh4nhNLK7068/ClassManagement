@@ -69,6 +69,15 @@ namespace ClassManagement
         protected global::Telerik.Web.UI.RadMenu RadMenu2;
 
         /// <summary>
+        /// MyClassSite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadMenuItem MyClassSite;
+
+        /// <summary>
         /// ContentPlaceHolder1 control.
         /// </summary>
         /// <remarks>

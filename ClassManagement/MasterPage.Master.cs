@@ -17,7 +17,15 @@ namespace ClassManagement
                 {
                     lblUserName.Text = "Hello, xxx  |  ";
                 }
+
+                SetMenuByRole();
             }
+        }
+
+        private void SetMenuByRole()
+        {
+            string role = Session["UserRole"] as string; //Debug here
+            MyClassSite.Visible = role == "Student";
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
@@ -34,6 +42,5 @@ namespace ClassManagement
             }
             Response.Redirect("~/Views/Account/SignInForm.aspx");
         }
-
     }
 }

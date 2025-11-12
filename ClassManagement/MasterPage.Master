@@ -56,11 +56,12 @@
                             <telerik:LayoutColumn Span="2" HiddenMd="true" HiddenSm="true" HiddenXs="true">
                                 <telerik:RadMenu ID="RadMenu2" CssClass="sidebar" Flow="Vertical" runat="server">
                                     <Items>
+                                        <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Home" NavigateUrl="Default.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Dashboard" NavigateUrl="~/Views/Dashboard/Dashboard.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="My Class" NavigateUrl="~/Views/MyClass/MyClass.aspx" />
+                                        <telerik:RadMenuItem ID="MyClassSite" runat="server" Text="My Class" NavigateUrl="~/Views/MyClass/MyClass.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Curriculum Management" NavigateUrl="~/Views/Curriculum/Curriculum.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />

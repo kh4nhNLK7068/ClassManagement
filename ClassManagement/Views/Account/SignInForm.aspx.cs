@@ -38,7 +38,6 @@ namespace ClassManagement.Views.Account
 
                 // Save token to Sesion or Cookie
                 Session["JwtToken"] = token;
-                Session["Username"] = HttpContext.Current.User.Identity.Name;
                 Session["UserRole"] = userRole;
 
                 // Or save it to Cookie

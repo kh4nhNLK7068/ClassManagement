@@ -44,6 +44,7 @@ namespace ClassManagement.Helpers
             {
                 var principal = JwtManager.ValidateToken(context.Session["JwtToken"].ToString());
                 HttpContext.Current.User = principal;
+                Session["Username"] = HttpContext.Current.User.Identity.Name;
             }
             catch
             {

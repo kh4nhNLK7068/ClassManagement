@@ -284,6 +284,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthorizeAttribute.cs" />
     <Compile Include="Helpers\JwtManager.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="ListView.aspx.cs">
@@ -326,6 +327,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Shared\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Views\Account\SignInForm.aspx.cs">
       <DependentUpon>SignInForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -2,13 +2,16 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using ClassManagement.Helpers;
 using ClassManagement.Models.Dtos;
 using ClassManagement.Models.Entities;
+using ClassManagement.Shared;
 using Dapper;
 
 namespace ClassManagement.Views
 {
-    public partial class MyClass : System.Web.UI.Page
+    [Authorize("Student")]
+    public partial class MyClass : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
