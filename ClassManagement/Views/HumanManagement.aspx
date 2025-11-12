@@ -99,18 +99,17 @@
                 <h3>Students Management</h3>
 
                 <telerik:RadGrid ID="RadGrid1" GridLines="None" runat="server"
-                    AllowAutomaticDeletes="True"
                     AllowSorting="True"
-                    AllowAutomaticInserts="True"
                     PageSize="10"
-                    AllowAutomaticUpdates="True"
+                    AllowAutomaticDeletes="False"
+                    AllowAutomaticInserts="False"
+                    AllowAutomaticUpdates="False"
                     AllowMultiRowEdit="False"
                     AllowPaging="True"
                     OnNeedDataSource="RadGrid1_NeedDataSource"
-                    OnItemUpdated="RadGrid1_ItemUpdated"
+                    OnInsertCommand="RadGrid1_InsertCommand"
+                    OnUpdateCommand="RadGrid1_UpdateCommand"
                     AllowFilteringByColumn="True"
-                    OnItemDeleted="RadGrid1_ItemDeleted"
-                    OnItemInserted="RadGrid1_ItemInserted"
                     OnDataBound="RadGrid1_DataBound"
                     Skin="Bootstrap">
 
@@ -139,9 +138,6 @@
                                 <ItemTemplate>
                                     <%# Eval("Username") %>
                                 </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>' Width="100%" />
-                                </EditItemTemplate>
                             </telerik:GridTemplateColumn>
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
@@ -212,18 +208,17 @@
                 <h3>Teachers Management</h3>
 
                 <telerik:RadGrid ID="RadGrid2" GridLines="None" runat="server"
-                    AllowAutomaticDeletes="True"
                     AllowSorting="True"
-                    AllowAutomaticInserts="True"
                     PageSize="10"
-                    AllowAutomaticUpdates="True"
+                    AllowAutomaticDeletes="False"
+                    AllowAutomaticInserts="False"
+                    AllowAutomaticUpdates="False"
                     AllowMultiRowEdit="False"
                     AllowPaging="True"
                     OnNeedDataSource="RadGrid2_NeedDataSource"
-                    OnItemUpdated="RadGrid2_ItemUpdated"
+                    OnInsertCommand="RadGrid2_InsertCommand"
+                    OnUpdateCommand="RadGrid2_UpdateCommand"
                     AllowFilteringByColumn="True"
-                    OnItemDeleted="RadGrid2_ItemDeleted"
-                    OnItemInserted="RadGrid2_ItemInserted"
                     OnDataBound="RadGrid2_DataBound"
                     Skin="Bootstrap">
 
@@ -252,9 +247,6 @@
                                 <ItemTemplate>
                                     <%# Eval("Username") %>
                                 </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="txtUsername" runat="server" Text='<%# Bind("Username") %>' Width="100%" />
-                                </EditItemTemplate>
                             </telerik:GridTemplateColumn>
 
                             <telerik:GridTemplateColumn HeaderText="Date of Birth" UniqueName="DateOfBirth">
