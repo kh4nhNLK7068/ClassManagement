@@ -66,10 +66,6 @@
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem Text="Human Management" NavigateUrl="~/Views/HumanManagement.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Sample page 1" NavigateUrl="Grid.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Sample page 2" NavigateUrl="ListView.aspx" />
-                                        <telerik:RadMenuItem IsSeparator="true" />
                                     </Items>
                                 </telerik:RadMenu>
                             </telerik:LayoutColumn>
