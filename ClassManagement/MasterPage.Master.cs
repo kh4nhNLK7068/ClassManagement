@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace ClassManagement
 {
@@ -23,6 +24,14 @@ namespace ClassManagement
         {
             Session.Clear();
             Session.Abandon();
+
+            // Delete Cookie
+            if(Request.Cookies["AuthToken"] != null)
+            {
+                HttpCookie cookie = new HttpCookie("AuthToken");
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
+            }
             Response.Redirect("~/Views/Account/SignInForm.aspx");
         }
 

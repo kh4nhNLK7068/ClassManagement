@@ -40,19 +40,26 @@ namespace ClassManagement.Helpers
             var audience = ConfigurationManager.AppSettings["JwtAudience"];
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
+            try
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = issuer,
-                ValidAudience = audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
-            };
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                };
 
-            SecurityToken validatedToken;
-            return tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+                SecurityToken validatedToken;
+                return tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

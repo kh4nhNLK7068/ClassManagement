@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using ClassManagement.Helpers;
 
 namespace ClassManagement.Views.Account
@@ -34,7 +35,17 @@ namespace ClassManagement.Views.Account
                     userRole = "Student";
                 }
                 string token = JwtManager.GenerateToken(user.Username, userRole);
+
+                // Save token to Sesion or Cookie
                 Session["JwtToken"] = token;
+                Session["Username"] = HttpContext.Current.User.Identity.Name;
+                Session["UserRole"] = userRole;
+
+                // Or save it to Cookie
+                HttpCookie authCookie = new HttpCookie("AuthToken", token);
+                authCookie.Expires = DateTime.Now.AddHours(1);
+                Response.Cookies.Add(authCookie);
+
                 Response.Redirect("~/Default.aspx");
             }
             else
