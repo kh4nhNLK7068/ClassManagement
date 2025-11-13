@@ -44,6 +44,7 @@ public partial class Dashboard : BasePage
         RadHtmlChart1.Visible = (role == "Admin" || role == "Teacher");
         RadHtmlChart2.Visible = (role == "Admin" || role == "Teacher");
         RadHtmlChart3.Visible = (role == "Admin" || role == "Teacher");
+        RadHtmlChart4.Visible = (role == "Student");
         RadHtmlChartBar.Visible = (role == "Admin" || role == "Teacher");
     }
 
