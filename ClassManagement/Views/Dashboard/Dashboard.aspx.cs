@@ -20,6 +20,11 @@ public partial class Dashboard : BasePage
         public string Name { get; set; }
         public int TotalStudent { get; set; }
     }
+    public class ClassBySubjectStat
+    {
+        public string SubjectName { get; set; }
+        public int NumberOfClasses { get; set; }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,6 +32,7 @@ public partial class Dashboard : BasePage
         {
             ActiveBindPieChart();
             GetClassCountBySchedule();
+            GetClassCountBySubject();
             StudentOfClassesChart();
             SetChartByRole();
         }
@@ -115,6 +121,40 @@ public partial class Dashboard : BasePage
         }
         RadHtmlChart3.DataSource = browserUsage3;
         RadHtmlChart3.DataBind();
+    }
+
+    public void GetClassCountBySubject()
+    {
+        IEnumerable<ClassBySubjectStat> classes;
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            var username = (String)Session["Username"];
+            string sql = @"
+                SELECT 
+                    s.Name AS SubjectName, COUNT(DISTINCT c.ID) AS NumberOfClasses
+                FROM [StudentInClass] si
+                INNER JOIN [Class] c ON si.ClassId = c.ID
+                INNER JOIN [Subject] s ON s.ID = c.SubjectId
+                INNER JOIN [User] u ON u.StudentInfoId = si.StudentId
+                WHERE u.Username = @Username 
+                GROUP BY s.Name
+                ORDER BY s.Name;
+            ";
+            classes = connection.Query<ClassBySubjectStat>(sql, new { Username = username }).ToList();
+        }
+        var browserUsage4 = new List<BrowserUsage>();
+
+        foreach (var item in classes)
+        {
+            browserUsage4.Add(new BrowserUsage
+            {
+                Browser = item.SubjectName,
+                Value = item.NumberOfClasses,
+                Explode = false
+            });
+        }
+        RadHtmlChart4.DataSource = browserUsage4;
+        RadHtmlChart4.DataBind();
     }
 
     private void StudentOfClassesChart()

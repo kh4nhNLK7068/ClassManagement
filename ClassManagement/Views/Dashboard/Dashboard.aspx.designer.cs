@@ -40,6 +40,15 @@ public partial class Dashboard
     protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart3;
 
     /// <summary>
+    /// RadHtmlChart4 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart4;
+
+    /// <summary>
     /// RadHtmlChartBar control.
     /// </summary>
     /// <remarks>
