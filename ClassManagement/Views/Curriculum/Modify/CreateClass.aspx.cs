@@ -5,12 +5,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ClassManagement.Helpers;
 using ClassManagement.Models.Dtos;
 using ClassManagement.Models.Entities;
+using ClassManagement.Shared;
 using Dapper;
 using Telerik.Web.UI;
 
-public partial class CreateClass : System.Web.UI.Page
+[Authorize("Admin", "Teacher")]
+public partial class CreateClass : BasePage
 {
     private string conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 

@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 using ClassManagement.Models.Dtos;
+using ClassManagement.Helpers;
+using ClassManagement.Shared;
 
 /* ### DOCUMENTS ###
         - User click Save
@@ -50,7 +52,8 @@ using ClassManagement.Models.Dtos;
         v
         Show message "Success! Username: xxx"
     */
-public partial class HumanManagement : System.Web.UI.Page
+[Authorize("Admin", "Teacher")]
+public partial class HumanManagement : BasePage
 {
     string conn = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
@@ -61,9 +64,16 @@ public partial class HumanManagement : System.Web.UI.Page
             RadTabStrip1.SelectedIndex = 0;
             RadMultiPage1.SelectedIndex = 0;
         }
+        SetTabByRole();
     }
 
-    
+    private void SetTabByRole()
+    {
+        string role = Session["UserRole"] as string;
+        RadPageView2.Visible = role == "Admin";
+        RadTab2.Visible = role == "Admin";
+    }
+
     private string gridMessage = null;
 
     #region RadGrid1 - Students Tab

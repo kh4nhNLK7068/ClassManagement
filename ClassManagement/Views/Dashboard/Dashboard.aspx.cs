@@ -1,11 +1,12 @@
-﻿using Dapper;
+﻿using ClassManagement.Shared;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 
-public partial class Dashboard : System.Web.UI.Page
+public partial class Dashboard : BasePage
 {
     private readonly string _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
@@ -20,7 +21,6 @@ public partial class Dashboard : System.Web.UI.Page
         public int TotalStudent { get; set; }
     }
 
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -28,7 +28,17 @@ public partial class Dashboard : System.Web.UI.Page
             ActiveBindPieChart();
             GetClassCountBySchedule();
             StudentOfClassesChart();
+            SetChartByRole();
         }
+    }
+
+    private void SetChartByRole()
+    {
+        string role = Session["UserRole"] as string;
+        RadHtmlChart1.Visible = (role == "Admin" || role == "Teacher");
+        RadHtmlChart2.Visible = (role == "Admin" || role == "Teacher");
+        RadHtmlChart3.Visible = (role == "Admin" || role == "Teacher");
+        RadHtmlChartBar.Visible = (role == "Admin" || role == "Teacher");
     }
 
     private void ActiveBindPieChart()

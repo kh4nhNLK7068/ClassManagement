@@ -1,12 +1,15 @@
-﻿using ClassManagement.Models.Dtos;
+﻿using ClassManagement.Helpers;
+using ClassManagement.Models.Dtos;
 using ClassManagement.Models.Entities;
+using ClassManagement.Shared;
 using Dapper;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
 using Telerik.Web.UI;
 
-public partial class Curriculum : System.Web.UI.Page
+[Authorize("Admin", "Teacher")]
+public partial class Curriculum : BasePage
 {
     string conn = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)

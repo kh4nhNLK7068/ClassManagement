@@ -63,9 +63,9 @@
                                         <telerik:RadMenuItem IsSeparator="true" />
                                         <telerik:RadMenuItem ID="MyClassSite" runat="server" Text="My Class" NavigateUrl="~/Views/MyClass/MyClass.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Curriculum Management" NavigateUrl="~/Views/Curriculum/Curriculum.aspx" />
+                                        <telerik:RadMenuItem ID="CurriculumSite" runat="server" Text="Curriculum Management" NavigateUrl="~/Views/Curriculum/Curriculum.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
-                                        <telerik:RadMenuItem Text="Human Management" NavigateUrl="~/Views/HumanManagement.aspx" />
+                                        <telerik:RadMenuItem ID="HumanSite" runat="server" Text="Human Management" NavigateUrl="~/Views/HumanManagement.aspx" />
                                         <telerik:RadMenuItem IsSeparator="true" />
                                     </Items>
                                 </telerik:RadMenu>

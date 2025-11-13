@@ -22,6 +22,24 @@ public partial class HumanManagement
     protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
 
     /// <summary>
+    /// RadTab1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadTab RadTab1;
+
+    /// <summary>
+    /// RadTab2 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadTab RadTab2;
+
+    /// <summary>
     /// RadMultiPage1 control.
     /// </summary>
     /// <remarks>

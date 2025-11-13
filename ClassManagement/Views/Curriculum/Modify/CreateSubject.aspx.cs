@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data.SqlClient;
+using ClassManagement.Helpers;
+using ClassManagement.Shared;
 using Dapper;
 
-public partial class CreateSubject : System.Web.UI.Page
+[Authorize("Admin", "Teacher")]
+public partial class CreateSubject : BasePage
 {
     string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 

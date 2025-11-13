@@ -24,8 +24,10 @@ namespace ClassManagement
 
         private void SetMenuByRole()
         {
-            string role = Session["UserRole"] as string; //Debug here
+            string role = Session["UserRole"] as string;
             MyClassSite.Visible = role == "Student";
+            CurriculumSite.Visible = (role == "Admin" || role == "Teacher");
+            HumanSite.Visible = (role == "Admin" || role == "Teacher");
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

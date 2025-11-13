@@ -85,8 +85,8 @@
         SelectedIndex="0"
         Skin="Default">
         <Tabs>
-            <telerik:RadTab Text="Students" Selected="true" />
-            <telerik:RadTab Text="Teachers" />
+            <telerik:RadTab ID="RadTab1" runat="server" Text="Students" Selected="true" />
+            <telerik:RadTab ID="RadTab2" runat="server" Text="Teachers" />
         </Tabs>
     </telerik:RadTabStrip>
 
