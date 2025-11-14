@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using ClassManagement.Helpers;
@@ -70,10 +69,11 @@ namespace ClassManagement.Views
                     WHERE sc.ClassId = @ClassId
                     ORDER BY si.FullName;
                 ";
+                //If use Dto with status ("Active/Inactive")
+                //CASE WHEN si.Status = 1 THEN 'Active' ELSE 'Inactive' END AS StatusText
 
                 e.DetailTableView.DataSource = connection.Query<StudentInfo>(sql, new { ClassId = classId });
             }
         }
-
     }
 }

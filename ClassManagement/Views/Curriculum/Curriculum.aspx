@@ -43,7 +43,11 @@
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn DataField="Description" HeaderText="Description" />
                 <telerik:GridBoundColumn DataField="Type" HeaderText="Type" />
-                <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
+                <telerik:GridTemplateColumn HeaderText="Status">
+                    <ItemTemplate>
+                        <%# (Eval("Status").ToString() == "True") ? "Active" : "Inactive" %>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
             </Columns>
 
             <DetailTables>

@@ -179,7 +179,11 @@
                         <telerik:GridBoundColumn DataField="FullName" HeaderText="Full name" />
                         <telerik:GridBoundColumn DataField="DoB" HeaderText="Birthday" DataFormatString="{0:dd-MM-yyyy}" />
                         <telerik:GridBoundColumn DataField="CityLive" HeaderText="City" />
-                        <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
+                        <telerik:GridTemplateColumn HeaderText="Status">
+                            <ItemTemplate>
+                                <%# (Eval("Status").ToString() == "True") ? "Active" : "Inactive" %>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
                         <telerik:GridButtonColumn 
                             CommandName="Delete" 
                             Text="Remove" 

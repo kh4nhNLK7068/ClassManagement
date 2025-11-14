@@ -33,7 +33,11 @@
                         <telerik:GridBoundColumn DataField="FullName" HeaderText="Student Name" />
                         <telerik:GridBoundColumn DataField="DoB" HeaderText="Date of Birth" DataFormatString="{0:yyyy-MM-dd}" />
                         <telerik:GridBoundColumn DataField="CityLive" HeaderText="City live" />
-                        <telerik:GridBoundColumn DataField="Status" HeaderText="Status" />
+                        <telerik:GridTemplateColumn HeaderText="Status">
+                            <ItemTemplate>
+                                <%# (Eval("Status").ToString() == "True") ? "Active" : "Inactive" %>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
                     </Columns>
                 </telerik:GridTableView>
             </DetailTables>
