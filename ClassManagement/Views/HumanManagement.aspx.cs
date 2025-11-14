@@ -138,10 +138,10 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
-            if (IsUserExists(fullName, city, "Student"))
+            if (IsUserExists(fullName, city))
             {
                 e.Canceled = true;
-                DisplayMessage("Student already exists with this name and city!");
+                DisplayMessage("User already exists with this name and city!");
                 return;
             }
 
@@ -301,10 +301,10 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
-            if (IsUserExists(fullName, city, "Teacher"))
+            if (IsUserExists(fullName, city))
             {
                 e.Canceled = true;
-                DisplayMessage("Teacher already exists with this name and city!");
+                DisplayMessage("User already exists with this name and city!");
                 return;
             }
 
@@ -459,13 +459,18 @@ public partial class HumanManagement : BasePage
     #endregion
 
     #region Helpers
-    private bool IsUserExists(string fullName, string city, string userType)
+    private bool IsUserExists(string fullName, string city)
     {
         using (var connection = new SqlConnection(conn))
         {
-            string table = userType == "Teacher" ? "TeacherInfo" : "StudentInfo";
-            var sql = $"SELECT COUNT(*) FROM {table} WHERE FullName = @FullName AND CityLive = @City";
-            var count = connection.ExecuteScalar<int>(sql, new { FullName = fullName, City = city });
+            string[] tables = { "TeacherInfo", "StudentInfo" };
+            var sql = "";
+            var count = 0;
+            foreach(var table in tables)
+            {
+                sql = $"SELECT COUNT(*) FROM {table} WHERE FullName = @FullName AND CityLive = @City";
+                count += connection.ExecuteScalar<int>(sql, new { FullName = fullName, City = city });
+            }
             return count > 0;
         }
     }
