@@ -128,8 +128,6 @@ public partial class HumanManagement : BasePage
             TextBox txtCity = item.FindControl("txtCity") as TextBox;
             string city = txtCity?.Text.Trim();
 
-            System.Diagnostics.Debug.WriteLine(fullName + "-" + dob + "-" + city);
-
             // Validate
             if (string.IsNullOrEmpty(fullName))
             {
@@ -138,12 +136,14 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
-            if (IsUserExists(fullName, city))
+            if (IsUserExists(fullName, city, "Insert"))
             {
                 e.Canceled = true;
                 DisplayMessage("User already exists with this name and city!");
                 return;
             }
+            // Generate username and insert User
+            string username = GenerateUsername(fullName);
 
             // Insert into DB
             using (var connection = new SqlConnection(conn))
@@ -154,9 +154,6 @@ public partial class HumanManagement : BasePage
                     VALUES (@FullName, @DoB, @CityLive, @Status);
                     SELECT CAST(SCOPE_IDENTITY() as int)",
                     new { FullName = fullName, DoB = dob, CityLive = city, Status = 1 });
-
-                // Generate username and insert User
-                string username = GenerateUsername(fullName);
 
                 // Check username
                 if (IsUsernameExists(username))
@@ -180,7 +177,7 @@ public partial class HumanManagement : BasePage
 
             // Rebind grid
             RadGrid1.Rebind();
-            DisplayMessage("Student inserted successfully! Username: " + GenerateUsername(fullName));
+            DisplayMessage("Student inserted successfully! Username: " + username);
         }
         catch (Exception ex)
         {
@@ -214,6 +211,14 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
+            if (IsUserExists(fullName, city, "Update", studentId))
+            {
+                bool x = IsUserExists(fullName, city, "Update", studentId);
+                e.Canceled = true;
+                DisplayMessage("User already exists with this name and city!");
+                return;
+            }
+
             // Update DB
             using (var connection = new SqlConnection(conn))
             {
@@ -223,6 +228,35 @@ public partial class HumanManagement : BasePage
                     SET FullName = @FullName, DoB = @DoB, CityLive = @CityLive
                     WHERE ID = @ID",
                     new { FullName = fullName, DoB = dob, CityLive = city, ID = studentId });
+
+                // Generate and Update new username 
+                string newUsername = GenerateUsername(fullName);
+                string oldUsername = connection.QuerySingleOrDefault<string>(@"SELECT [Username] FROM [User] WHERE StudentInfoId = @StudentId;", new { StudentId = studentId }).ToString();
+                string originalUsername = newUsername;
+
+                // Check Username 
+                if (IsUsernameExists(newUsername))
+                {
+                    // Add number at the end if duplicate
+                    int counter = 1;
+                    while (IsUsernameExists(newUsername))
+                    {
+                        newUsername = originalUsername + counter;
+                        counter++;
+                    }
+                }
+                // Ex: annv1, annv2, annv6 (update info) -> still hold annv6 after updating infor
+                if (newUsername.Contains(originalUsername)
+                    && oldUsername.Contains(originalUsername))
+                { }
+                else
+                {
+                    connection.Execute(@"
+                        UPDATE [User] 
+                        SET [Username] = @Username
+                        WHERE StudentInfoId = @ID",
+                    new { Username = newUsername, ID = studentId });
+                }
             }
 
             RadGrid1.Rebind();
@@ -291,8 +325,6 @@ public partial class HumanManagement : BasePage
             TextBox txtCity = item.FindControl("txtCity") as TextBox;
             string city = txtCity?.Text.Trim();
 
-            System.Diagnostics.Debug.WriteLine(fullName + "-" + dob + "-" + city);
-
             // Validate
             if (string.IsNullOrEmpty(fullName))
             {
@@ -301,12 +333,15 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
-            if (IsUserExists(fullName, city))
+            if (IsUserExists(fullName, city, "Insert"))
             {
                 e.Canceled = true;
                 DisplayMessage("User already exists with this name and city!");
                 return;
             }
+
+            // Generate username and insert User
+            string username = GenerateUsername(fullName);
 
             // Insert into DB
             using (var connection = new SqlConnection(conn))
@@ -317,9 +352,6 @@ public partial class HumanManagement : BasePage
                     VALUES (@FullName, @DoB, @CityLive, @Status);
                     SELECT CAST(SCOPE_IDENTITY() as int)",
                     new { FullName = fullName, DoB = dob, CityLive = city, Status = 1 });
-
-                // Generate username and insert User
-                string username = GenerateUsername(fullName);
 
                 // Check username
                 if (IsUsernameExists(username))
@@ -343,7 +375,7 @@ public partial class HumanManagement : BasePage
 
             // Rebind grid
             RadGrid1.Rebind();
-            DisplayMessage("Teacher inserted successfully! Username: " + GenerateUsername(fullName));
+            DisplayMessage("Teacher inserted successfully! Username: " + username);
         }
         catch (Exception ex)
         {
@@ -378,6 +410,14 @@ public partial class HumanManagement : BasePage
                 return;
             }
 
+            if (IsUserExists(fullName, city, "Update", teacherId))
+            {
+                bool x = IsUserExists(fullName, city, "Update", teacherId);
+                e.Canceled = true;
+                DisplayMessage("User already exists with this name and city!");
+                return;
+            }
+
             // Update DB
             using (var connection = new SqlConnection(conn))
             {
@@ -387,6 +427,35 @@ public partial class HumanManagement : BasePage
                     SET FullName = @FullName, DoB = @DoB, CityLive = @CityLive
                     WHERE ID = @ID",
                     new { FullName = fullName, DoB = dob, CityLive = city, ID = teacherId });
+
+                // Generate and Update new username 
+                string newUsername = GenerateUsername(fullName);
+                string oldUsername = connection.QuerySingleOrDefault<string>(@"SELECT [Username] FROM [User] WHERE TeacherInfoId = @TeacherId;", new { TeacherId = teacherId }).ToString();
+                string originalUsername = newUsername;
+
+                // Check Username 
+                if (IsUsernameExists(newUsername))
+                {
+                    // Add number at the end if duplicate
+                    int counter = 1;
+                    while (IsUsernameExists(newUsername))
+                    {
+                        newUsername = originalUsername + counter;
+                        counter++;
+                    }
+                }
+                // Ex: annv1, annv2, annv6 (update info) -> still hold annv6 after updating infor
+                if (newUsername.Contains(originalUsername)
+                    && oldUsername.Contains(originalUsername))
+                { }
+                else
+                {
+                    connection.Execute(@"
+                        UPDATE [User] 
+                        SET [Username] = @Username
+                        WHERE TeacherInfoId = @ID",
+                    new { Username = newUsername, ID = teacherId });
+                }
             }
 
             RadGrid1.Rebind();
@@ -459,17 +528,25 @@ public partial class HumanManagement : BasePage
     #endregion
 
     #region Helpers
-    private bool IsUserExists(string fullName, string city)
+    private bool IsUserExists(string fullName, string city, string mode, int userId = 0)
     {
         using (var connection = new SqlConnection(conn))
         {
             string[] tables = { "TeacherInfo", "StudentInfo" };
             var sql = "";
             var count = 0;
-            foreach(var table in tables)
+            foreach (var table in tables)
             {
-                sql = $"SELECT COUNT(*) FROM {table} WHERE FullName = @FullName AND CityLive = @City";
-                count += connection.ExecuteScalar<int>(sql, new { FullName = fullName, City = city });
+                if(mode == "Update") // Exclude current user
+                {
+                    sql = $"SELECT COUNT(*) FROM {table} WHERE FullName = @FullName AND CityLive = @City AND ID != @Id";
+                    count += connection.ExecuteScalar<int>(sql, new { FullName = fullName, City = city, Id = userId });
+                }
+                else
+                {
+                    sql = $"SELECT COUNT(*) FROM {table} WHERE FullName = @FullName AND CityLive = @City";
+                    count += connection.ExecuteScalar<int>(sql, new { FullName = fullName, City = city });
+                }
             }
             return count > 0;
         }
