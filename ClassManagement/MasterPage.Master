@@ -12,6 +12,12 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <script type="text/javascript">
+        function openChangePassword() {
+            var wnd = $find("<%= rwChangePassword.ClientID %>");
+            wnd.show();
+        }
+    </script>
     <form id="form1" runat="server">
         <telerik:RadScriptManager runat="server"></telerik:RadScriptManager>
         <div id="wrapper">
@@ -32,10 +38,30 @@
                                 Span="12" SpanMd="12" SpanSm="12" SpanXs="12"
                                 Style="position: absolute; width: 100%; text-align: right; display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 10px 20px;">
 
-                                <asp:Label
-                                    ID="lblUserName"
+                                <asp:LinkButton
+                                    ID="lnkUserName"
                                     runat="server"
-                                    Style="font-weight: bold; font-size: 14px; color: white;" />
+                                    Style="font-weight: bold; font-size: 14px; color: white;"
+                                    OnClientClick="openChangePassword(); return false;">
+                                </asp:LinkButton>
+
+                                <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
+                                    <Windows>
+                                        <telerik:RadWindow
+                                            ID="rwChangePassword"
+                                            runat="server"
+                                            Title="Change Password"
+                                            Width="600px"
+                                            Height="400px"
+                                            VisibleStatusbar="false"
+                                            Modal="true"
+                                            Behaviors="Close"
+                                            ReloadOnShow="true"
+                                            ShowContentDuringLoad="false"
+                                            NavigateUrl="~/Views/Account/ChangePasswordForm.aspx">
+                                        </telerik:RadWindow>
+                                    </Windows>
+                                </telerik:RadWindowManager>
 
                                 <asp:LinkButton
                                     ID="btnLogout"

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ClassManagement.Helpers;
+using System;
 using System.Web;
 
 namespace ClassManagement
 {
+    [Authorize]
     public partial class MasterPage : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -11,11 +13,11 @@ namespace ClassManagement
             {
                 if (Session["Username"] != null)
                 {
-                    lblUserName.Text = "Hello, " + Session["Username"].ToString() + "  |  ";
+                    lnkUserName.Text = "Hello, " + Session["Username"].ToString() + "  |  ";
                 }
                 else
                 {
-                    lblUserName.Text = "Hello, xxx  |  ";
+                    lnkUserName.Text = "Hello, xxx  |  ";
                 }
 
                 SetMenuByRole();

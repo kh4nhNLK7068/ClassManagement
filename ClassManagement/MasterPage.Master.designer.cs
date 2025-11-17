@@ -42,13 +42,31 @@ namespace ClassManagement
         protected global::Telerik.Web.UI.RadPageLayout MasterLayout;
 
         /// <summary>
-        /// lblUserName control.
+        /// lnkUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUserName;
+        protected global::System.Web.UI.WebControls.LinkButton lnkUserName;
+
+        /// <summary>
+        /// RadWindowManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+
+        /// <summary>
+        /// rwChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow rwChangePassword;
 
         /// <summary>
         /// btnLogout control.
