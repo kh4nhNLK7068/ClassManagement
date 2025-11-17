@@ -62,13 +62,13 @@ public partial class CreateClass : BasePage
             // Find students not in class yet
             var sql = @"
                 SELECT TOP 10 
-                    si.ID,
-                    si.FullName,
-                    si.DoB,
-                    si.CityLive,
-                    si.Status
-                FROM StudentInfo si
-                WHERE si.FullName LIKE @SearchText
+                    si.ID, 
+                    si.FullName, 
+                    si.DoB, 
+                    si.CityLive, 
+                    si.Status 
+                FROM StudentInfo si 
+                WHERE si.FullName LIKE @SearchText AND si.Status = 1 
                 AND si.ID NOT IN (
                     SELECT StudentId 
                     FROM StudentInClass 
@@ -192,7 +192,7 @@ public partial class CreateClass : BasePage
                                si.Status
                         FROM StudentInClass sc
                         INNER JOIN StudentInfo si ON sc.StudentId = si.ID
-                        WHERE sc.ClassId = @ClassId
+                        WHERE sc.ClassId = @ClassId AND si.Status = 1 
                         ORDER BY si.FullName;
                     ";
                     var data = connection.Query<StudentInfo>(sql, new { ClassId = classId });

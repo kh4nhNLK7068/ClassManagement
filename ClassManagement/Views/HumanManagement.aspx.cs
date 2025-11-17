@@ -519,6 +519,13 @@ public partial class HumanManagement : BasePage
 
                         updateSql = "UPDATE [User] SET [Status] = @Status WHERE StudentInfoId = @StudentInfoId;";
                         connection.Execute(updateSql, new { Status = newStatus, StudentInfoId = userInfoId });
+
+                        //Remove student when their status is 'Inactive' - value 0
+                        if(newStatus == 0)
+                        {
+                            var removeStudentInClassSql = "DELETE FROM StudentInClass WHERE StudentId = @StudentId";
+                            connection.Execute(removeStudentInClassSql, new { StudentId = userInfoId });
+                        }
                     }
 
                     // Refresh grid
