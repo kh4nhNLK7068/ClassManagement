@@ -19,7 +19,7 @@ namespace ClassManagement.Views.Account
             var repo = new UserRepository();
             var user = repo.GetUser(username, password);
 
-            if (user != null)
+            if (user != null && user.Status)
             {
                 string userRole = "";
                 if (user.StudentInfoId == null && user.TeacherInfoId == null)
