@@ -23,6 +23,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <telerik:RadNotification ID="Notif"
+        runat="server"
+        Position="TopRight"
+        AutoCloseDelay="3000"
+        VisibleOnPageLoad="false"
+        Title="Notification"
+        Skin="Bootstrap"
+        Animation="Slide">
+    </telerik:RadNotification>
+
     <h2>
         <asp:Literal ID="lblFormTitle" runat="server" /></h2>
     <br />
@@ -110,27 +120,24 @@
                 <h4 style="margin-top: 0;">Add Student to Class</h4>
                 <div style="display: flex; gap: 10px; align-items: flex-start;">
                     <div style="flex: 1; position: relative;">
-                        <telerik:RadTextBox 
-                            ID="txtSearchStudent" 
-                            runat="server" 
-                            Width="100%" 
+                        <telerik:RadTextBox
+                            ID="txtSearchStudent"
+                            runat="server"
+                            Width="100%"
                             EmptyMessage="Type student name to search..."
                             AutoPostBack="true"
                             OnTextChanged="txtSearchStudent_TextChanged">
                         </telerik:RadTextBox>
-                        
+
                         <!-- Search Results Dropdown -->
-                        <asp:Panel ID="pnlSearchResults" runat="server" 
-                            Style="position: absolute; top: 100%; left: 0; right: 0; 
-                                   background: white; border: 1px solid #ccc; 
-                                   max-height: 300px; overflow-y: auto; 
-                                   z-index: 1000; display: none;"
+                        <asp:Panel ID="pnlSearchResults" runat="server"
+                            Style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ccc; max-height: 300px; overflow-y: auto; z-index: 1000; display: none;"
                             CssClass="search-results-panel">
                             <asp:Repeater ID="rptSearchResults" runat="server">
                                 <ItemTemplate>
                                     <div class="search-result-item">
-                                        <asp:LinkButton 
-                                            ID="btnSelectStudent" 
+                                        <asp:LinkButton
+                                            ID="btnSelectStudent"
                                             runat="server"
                                             CommandArgument='<%# Eval("ID") %>'
                                             OnClick="btnSelectStudent_Click"
@@ -143,36 +150,37 @@
                             </asp:Repeater>
                         </asp:Panel>
                     </div>
-                    <telerik:RadButton 
-                        ID="btnAddStudent" 
-                        runat="server" 
-                        Text="Add" 
+                    <telerik:RadButton
+                        ID="btnAddStudent"
+                        runat="server"
+                        Text="Add"
                         OnClick="btnAddStudent_Click"
-                        Skin="Material" 
+                        Skin="Material"
                         Style="background-color: #28a745; color: white;" />
                 </div>
-                
+
                 <!-- Selected Student Info -->
-                <asp:Panel ID="pnlSelectedStudent" runat="server" Visible="false" 
+                <asp:Panel ID="pnlSelectedStudent" runat="server" Visible="false"
                     Style="margin-top: 10px; padding: 10px; background: white; border-radius: 4px;">
                     <asp:HiddenField ID="hfSelectedStudentId" runat="server" />
-                    <strong>Selected:</strong> <asp:Label ID="lblSelectedStudent" runat="server" />
+                    <strong>Selected:</strong>
+                    <asp:Label ID="lblSelectedStudent" runat="server" />
                 </asp:Panel>
             </div>
 
             <!-- Student Grid -->
-            <telerik:RadGrid ID="RadGridStudent" runat="server" 
-                AllowPaging="true" 
+            <telerik:RadGrid ID="RadGridStudent" runat="server"
+                AllowPaging="true"
                 AllowSorting="true"
-                PageSize="10" 
-                PagerStyle-PageButtonCount="5" 
+                PageSize="10"
+                PagerStyle-PageButtonCount="5"
                 AutoGenerateColumns="False"
                 OnNeedDataSource="RadGridStudent_NeedDataSource"
                 OnDeleteCommand="RadGridStudent_DeleteCommand"
                 EnableViewState="true">
-                
+
                 <MasterTableView AutoGenerateColumns="False"
-                    AllowFilteringByColumn="true" 
+                    AllowFilteringByColumn="true"
                     TableLayout="Fixed"
                     DataKeyNames="ID">
                     <Columns>
@@ -184,9 +192,9 @@
                                 <%# (Eval("Status").ToString() == "True") ? "Active" : "Inactive" %>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridButtonColumn 
-                            CommandName="Delete" 
-                            Text="Remove" 
+                        <telerik:GridButtonColumn
+                            CommandName="Delete"
+                            Text="Remove"
                             UniqueName="DeleteColumn"
                             ButtonType="LinkButton"
                             ConfirmText="Remove this student from class?" />

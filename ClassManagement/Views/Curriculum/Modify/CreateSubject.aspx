@@ -10,9 +10,9 @@
 
     <telerik:RadAjaxPanel runat="server" ID="ajaxPanel" LoadingPanelID="LoadingPanel">
         <telerik:RadAjaxLoadingPanel ID="LoadingPanel" runat="server" />
-
         <h2>
-            <asp:Literal ID="lblFormTitle" runat="server" /></h2>
+            <asp:Literal ID="lblFormTitle" runat="server" />
+        </h2>
         <br />
 
         <div style="display: flex; flex-direction: column; gap: 12px; width: 350px;">
@@ -37,7 +37,6 @@
                     Skin="Material" />
             </div>
         </div>
-
     </telerik:RadAjaxPanel>
 
 </asp:Content>

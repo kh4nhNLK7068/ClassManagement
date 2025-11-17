@@ -167,8 +167,10 @@ public partial class CreateClass : BasePage
             // Refresh grid
             RadGridStudent.Rebind();
 
-            ScriptManager.RegisterStartupScript(this, GetType(), "success",
-                "alert('Student added successfully!');", true);
+            //ScriptManager.RegisterStartupScript(this, GetType(), "success",
+            //    "alert('Student added successfully!');", true);
+            Notif.Text = "Student added successfully!";
+            Notif.Show();
         }
     }
 

@@ -95,6 +95,18 @@
 
         <!-- Tab 1: Students -->
         <telerik:RadPageView ID="RadPageView1" runat="server">
+
+            <%-- Use both Tab1 and Tab2 --%>
+            <telerik:RadNotification ID="Notif"
+                runat="server"
+                Position="TopRight"
+                AutoCloseDelay="3000"
+                VisibleOnPageLoad="false"
+                Title="Notification"
+                Skin="Bootstrap"
+                Animation="Slide">
+            </telerik:RadNotification>
+
             <div class="grid-container">
                 <h3>Students Management</h3>
 

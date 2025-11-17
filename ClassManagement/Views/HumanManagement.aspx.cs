@@ -108,7 +108,8 @@ public partial class HumanManagement : BasePage
     {
         if (!string.IsNullOrEmpty(gridMessage))
         {
-            DisplayMessage(gridMessage);
+            Notif.Text = gridMessage;
+            Notif.Show();
         }
     }
 
@@ -132,14 +133,16 @@ public partial class HumanManagement : BasePage
             if (string.IsNullOrEmpty(fullName))
             {
                 e.Canceled = true;
-                DisplayMessage("Full name is required!");
+                Notif.Text = "Full name is required!";
+
                 return;
             }
 
             if (IsUserExists(fullName, city, "Insert"))
             {
                 e.Canceled = true;
-                DisplayMessage("User already exists with this name and city!");
+                Notif.Text = "User already exists with this name and city!";
+                Notif.Show();
                 return;
             }
             // Generate username and insert User
@@ -177,12 +180,14 @@ public partial class HumanManagement : BasePage
 
             // Rebind grid
             RadGrid1.Rebind();
-            DisplayMessage("Student inserted successfully! Username: " + username);
+            Notif.Text = "Student inserted successfully! Username: " + username;
+            Notif.Show();
         }
         catch (Exception ex)
         {
             e.Canceled = true;
-            DisplayMessage("Insert failed: " + ex.Message);
+            Notif.Text = "Insert failed: " + ex.Message;
+            Notif.Show();
             System.Diagnostics.Debug.WriteLine($"Error inserting ttudent: {ex.Message}");
         }
     }
@@ -207,15 +212,16 @@ public partial class HumanManagement : BasePage
             if (string.IsNullOrEmpty(fullName))
             {
                 e.Canceled = true;
-                DisplayMessage("Full name is required!");
+                Notif.Text = "Full name is required!";
+                Notif.Show();
                 return;
             }
 
             if (IsUserExists(fullName, city, "Update", studentId))
             {
-                bool x = IsUserExists(fullName, city, "Update", studentId);
                 e.Canceled = true;
-                DisplayMessage("User already exists with this name and city!");
+                Notif.Text = "User already exists with this name and city!";
+                Notif.Show();
                 return;
             }
 
@@ -260,12 +266,14 @@ public partial class HumanManagement : BasePage
             }
 
             RadGrid1.Rebind();
-            DisplayMessage("Student updated successfully!");
+            Notif.Text = "Student updated successfully!";
+            Notif.Show();
         }
         catch (Exception ex)
         {
             e.Canceled = true;
-            DisplayMessage("Update failed: " + ex.Message);
+            Notif.Text = "Update failed: " + ex.Message;
+            Notif.Show();
             System.Diagnostics.Debug.WriteLine($"Error updating student: {ex.Message}");
         }
     }
@@ -305,7 +313,8 @@ public partial class HumanManagement : BasePage
     {
         if (!string.IsNullOrEmpty(gridMessage))
         {
-            DisplayMessage(gridMessage);
+            Notif.Text = gridMessage;
+            Notif.Show();
         }
     }
 
@@ -329,14 +338,16 @@ public partial class HumanManagement : BasePage
             if (string.IsNullOrEmpty(fullName))
             {
                 e.Canceled = true;
-                DisplayMessage("Full name is required!");
+                Notif.Text = "Full name is required!";
+                Notif.Show();
                 return;
             }
 
             if (IsUserExists(fullName, city, "Insert"))
             {
                 e.Canceled = true;
-                DisplayMessage("User already exists with this name and city!");
+                Notif.Text = "User already exists with this name and city!";
+                Notif.Show();
                 return;
             }
 
@@ -374,13 +385,15 @@ public partial class HumanManagement : BasePage
             }
 
             // Rebind grid
-            RadGrid1.Rebind();
-            DisplayMessage("Teacher inserted successfully! Username: " + username);
+            RadGrid2.Rebind();
+            Notif.Text = "Teacher inserted successfully! Username: " + username;
+            Notif.Show();
         }
         catch (Exception ex)
         {
             e.Canceled = true;
-            DisplayMessage("Insert failed: " + ex.Message);
+            Notif.Text = "Insert failed: " + ex.Message;
+            Notif.Show();
             System.Diagnostics.Debug.WriteLine($"Error inserting teacher: {ex.Message}");
         }
     }
@@ -406,15 +419,16 @@ public partial class HumanManagement : BasePage
             if (string.IsNullOrEmpty(fullName))
             {
                 e.Canceled = true;
-                DisplayMessage("Full name is required!");
+                Notif.Text = "Full name is required!";
+                Notif.Show();
                 return;
             }
 
             if (IsUserExists(fullName, city, "Update", teacherId))
             {
-                bool x = IsUserExists(fullName, city, "Update", teacherId);
                 e.Canceled = true;
-                DisplayMessage("User already exists with this name and city!");
+                Notif.Text = "User already exists with this name and city!";
+                Notif.Show();
                 return;
             }
 
@@ -458,13 +472,15 @@ public partial class HumanManagement : BasePage
                 }
             }
 
-            RadGrid1.Rebind();
-            DisplayMessage("Teacher updated successfully!");
+            RadGrid2.Rebind();
+            Notif.Text = "Teacher updated successfully!";
+            Notif.Show();
         }
         catch (Exception ex)
         {
             e.Canceled = true;
-            DisplayMessage("Update failed: " + ex.Message);
+            Notif.Text = "Update failed: " + ex.Message;
+            Notif.Show();
             System.Diagnostics.Debug.WriteLine($"Error updating teacher: {ex.Message}");
         }
     }
@@ -514,15 +530,16 @@ public partial class HumanManagement : BasePage
                     {
                         RadGrid2.Rebind();
                     }
-
-                    SetMessage($"Status updated to {(newStatus == 1 ? "Active" : "Inactive")} successfully!");
+                    Notif.Text = $"Status updated to {(newStatus == 1 ? "Active" : "Inactive")} successfully!";
+                    Notif.Show();
                 }
             }
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Error updating status: {ex.Message}");
-            SetMessage("Error updating status: " + ex.Message);
+            Notif.Text = "Error updating status: " + ex.Message;
+            Notif.Show();
         }
     }
     #endregion
@@ -532,6 +549,7 @@ public partial class HumanManagement : BasePage
     {
         using (var connection = new SqlConnection(conn))
         {
+            int id = userId;
             string[] tables = { "TeacherInfo", "StudentInfo" };
             var sql = "";
             var count = 0;
@@ -611,16 +629,6 @@ public partial class HumanManagement : BasePage
         }
 
         return text;
-    }
-
-    private void DisplayMessage(string text)
-    {
-        RadGrid1.Controls.Add(new LiteralControl(string.Format("<span style='color:red'>{0}</span>", text)));
-    }
-
-    private void SetMessage(string message)
-    {
-        gridMessage = message;
     }
     #endregion
 }

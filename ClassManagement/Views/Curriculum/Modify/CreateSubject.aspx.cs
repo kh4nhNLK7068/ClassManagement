@@ -98,7 +98,7 @@ public partial class CreateSubject : BasePage
                 }
             }
         }
-
+        System.Threading.Thread.Sleep(1000);
         Response.Redirect("../Curriculum.aspx");
     }
 }
