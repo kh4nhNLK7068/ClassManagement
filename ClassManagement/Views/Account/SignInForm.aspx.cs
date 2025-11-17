@@ -45,7 +45,7 @@ namespace ClassManagement.Views.Account
                 authCookie.Expires = DateTime.Now.AddHours(1);
                 Response.Cookies.Add(authCookie);
 
-                Response.Redirect("~/Default.aspx");
+                Response.Redirect("~/Views/Dashboard/Dashboard.aspx");
             }
             else
             {
