@@ -20,51 +20,49 @@
         <script type="text/javascript">
         //Put your JavaScript code here.
         </script>
+        <telerik:RadNotification ID="Notif"
+            runat="server"
+            Position="TopRight"
+            AutoCloseDelay="3000"
+            VisibleOnPageLoad="false"
+            Title="Notification"
+            Skin="Bootstrap"
+            Animation="Slide">
+        </telerik:RadNotification>
 
         <div id="changePasswordModal"
             style="display: none; position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;">
 
-            <div style="width: 420px; border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative;">
-
-                <!-- Close button -->
-                <span onclick="closeModal()"
-                    style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 20px;">&times;
-                </span>
+            <div style="color: white; width: 420px; border-radius: 10px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative;">
 
                 <h3 style="margin-top: 0; text-align: center; font-weight: bold;">Change Password</h3>
 
                 <div style="display: flex; flex-direction: column; gap: 15px;">
-
                     <div>
                         <label>Current password:</label><br />
-                        <asp:TextBox ID="txtBox1" runat="server" TextMode="Password"
+                        <asp:TextBox ID="currentPass" runat="server" TextMode="Password"
                             Style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;" />
                     </div>
 
                     <div>
                         <label>New password:</label><br />
-                        <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"
+                        <asp:TextBox ID="newPass" runat="server" TextMode="Password"
                             Style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;" />
                     </div>
 
                     <div>
                         <label>Confirm password:</label><br />
-                        <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"
+                        <asp:TextBox ID="confirmPass" runat="server" TextMode="Password"
                             Style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;" />
                     </div>
 
                     <div style="text-align: center; margin-top: 10px;">
                         <telerik:RadButton RenderMode="Lightweight" ID="RadButton5"
-                            runat="server" Width="140" Height="32" Text="Confirm" Skin="Default" />
+                            runat="server" Width="140" Height="32" Text="Confirm" Skin="Default" Onclick="ChangePassword"/>
                     </div>
-
-                    <asp:Label ID="lblResult" runat="server"
-                        Style="color: green; text-align: center; display: block;" />
                 </div>
-
             </div>
         </div>
-
     </form>
 </body>
 </html>

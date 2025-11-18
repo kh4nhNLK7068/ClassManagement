@@ -40,31 +40,40 @@ public partial class ChangePasswordForm
     protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
 
     /// <summary>
-    /// txtBox1 control.
+    /// Notif control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtBox1;
+    protected global::Telerik.Web.UI.RadNotification Notif;
 
     /// <summary>
-    /// TextBox2 control.
+    /// currentPass control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox TextBox2;
+    protected global::System.Web.UI.WebControls.TextBox currentPass;
 
     /// <summary>
-    /// TextBox3 control.
+    /// newPass control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox TextBox3;
+    protected global::System.Web.UI.WebControls.TextBox newPass;
+
+    /// <summary>
+    /// confirmPass control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox confirmPass;
 
     /// <summary>
     /// RadButton5 control.
@@ -74,13 +83,4 @@ public partial class ChangePasswordForm
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::Telerik.Web.UI.RadButton RadButton5;
-
-    /// <summary>
-    /// lblResult control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblResult;
 }
