@@ -192,7 +192,7 @@ public partial class CreateClass : BasePage
                                si.Status
                         FROM StudentInClass sc
                         INNER JOIN StudentInfo si ON sc.StudentId = si.ID
-                        WHERE sc.ClassId = @ClassId AND si.Status = 1 
+                        WHERE sc.ClassId = @ClassId  
                         ORDER BY si.FullName;
                     ";
                     var data = connection.Query<StudentInfo>(sql, new { ClassId = classId });

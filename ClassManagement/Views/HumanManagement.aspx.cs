@@ -523,7 +523,10 @@ public partial class HumanManagement : BasePage
                         //Remove student when their status is 'Inactive' - value 0
                         if(newStatus == 0)
                         {
-                            var removeStudentInClassSql = "DELETE FROM StudentInClass WHERE StudentId = @StudentId";
+                            var removeStudentInClassSql = @"DELETE sc
+                                                            FROM StudentInClass AS sc
+                                                            JOIN [Class] AS c ON sc.ClassId = c.ID 
+                                                            WHERE sc.StudentId = @StudentId AND c.Status = 'In-process';";
                             connection.Execute(removeStudentInClassSql, new { StudentId = userInfoId });
                         }
                     }
